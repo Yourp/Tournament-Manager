@@ -39,7 +39,7 @@ namespace Project1 {
 		}
     private: System::Windows::Forms::TextBox^  TB_AddPlayerTextBox;
     private: System::Windows::Forms::Button^  B_AddPlayer;
-    private: System::Windows::Forms::ListBox^  LB_PlayerList;
+
     private: System::Windows::Forms::ToolTip^  toolTip1;
     private: System::Windows::Forms::CheckBox^  HealerCheck;
 
@@ -48,7 +48,31 @@ namespace Project1 {
     private: System::Windows::Forms::Button^  B_Remove;
     private: System::Windows::Forms::Button^  B_RemoveAll;
     private: System::Windows::Forms::Label^  label1;
-    private: System::Windows::Forms::Timer^  timer1;
+    private: System::Windows::Forms::ListBox^  LB_PlayerList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         System::ComponentModel::IContainer^  components;
     public:
@@ -78,27 +102,26 @@ namespace Project1 {
             this->components = (gcnew System::ComponentModel::Container());
             this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
             this->label1 = (gcnew System::Windows::Forms::Label());
-            this->TB_AddPlayerTextBox = (gcnew System::Windows::Forms::TextBox());
             this->HealerCheck = (gcnew System::Windows::Forms::CheckBox());
+            this->TB_AddPlayerTextBox = (gcnew System::Windows::Forms::TextBox());
             this->B_RemoveAll = (gcnew System::Windows::Forms::Button());
             this->B_Remove = (gcnew System::Windows::Forms::Button());
-            this->LB_PlayerList = (gcnew System::Windows::Forms::ListBox());
             this->B_AddPlayer = (gcnew System::Windows::Forms::Button());
             this->toolTip1 = (gcnew System::Windows::Forms::ToolTip(this->components));
-            this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+            this->LB_PlayerList = (gcnew System::Windows::Forms::ListBox());
             this->groupBox1->SuspendLayout();
             this->SuspendLayout();
             // 
             // groupBox1
             // 
             this->groupBox1->Controls->Add(this->label1);
+            this->groupBox1->Controls->Add(this->LB_PlayerList);
             this->groupBox1->Controls->Add(this->HealerCheck);
             this->groupBox1->Controls->Add(this->TB_AddPlayerTextBox);
             this->groupBox1->Controls->Add(this->B_RemoveAll);
             this->groupBox1->Controls->Add(this->B_Remove);
-            this->groupBox1->Controls->Add(this->LB_PlayerList);
             this->groupBox1->Controls->Add(this->B_AddPlayer);
-            this->groupBox1->Font = (gcnew System::Drawing::Font(L"Corbel", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            this->groupBox1->Font = (gcnew System::Drawing::Font(L"Candara", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
                                      static_cast<System::Byte>(204)));
             this->groupBox1->Location = System::Drawing::Point(12, 12);
             this->groupBox1->Name = L"groupBox1";
@@ -112,9 +135,21 @@ namespace Project1 {
             this->label1->AutoSize = true;
             this->label1->Location = System::Drawing::Point(172, 19);
             this->label1->Name = L"label1";
-            this->label1->Size = System::Drawing::Size(66, 14);
+            this->label1->Size = System::Drawing::Size(67, 14);
             this->label1->TabIndex = 4;
             this->label1->Text = L"Ник игрока";
+            // 
+            // HealerCheck
+            // 
+            this->HealerCheck->AutoSize = true;
+            this->HealerCheck->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+                                       static_cast<System::Byte>(204)));
+            this->HealerCheck->Location = System::Drawing::Point(269, 34);
+            this->HealerCheck->Name = L"HealerCheck";
+            this->HealerCheck->Size = System::Drawing::Size(56, 22);
+            this->HealerCheck->TabIndex = 3;
+            this->HealerCheck->Text = L"Хил\?";
+            this->HealerCheck->UseVisualStyleBackColor = true;
             // 
             // TB_AddPlayerTextBox
             // 
@@ -126,23 +161,11 @@ namespace Project1 {
             this->toolTip1->SetToolTip(this->TB_AddPlayerTextBox, L"Напишите ник участника");
             this->TB_AddPlayerTextBox->TextChanged += gcnew System::EventHandler(this, &MyForm::TextCorrecter);
             // 
-            // HealerCheck
-            // 
-            this->HealerCheck->AutoSize = true;
-            this->HealerCheck->Font = (gcnew System::Drawing::Font(L"Corbel", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-                                       static_cast<System::Byte>(204)));
-            this->HealerCheck->Location = System::Drawing::Point(269, 34);
-            this->HealerCheck->Name = L"HealerCheck";
-            this->HealerCheck->Size = System::Drawing::Size(54, 19);
-            this->HealerCheck->TabIndex = 3;
-            this->HealerCheck->Text = L"Хил\?";
-            this->HealerCheck->UseVisualStyleBackColor = true;
-            // 
             // B_RemoveAll
             // 
             this->B_RemoveAll->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                        static_cast<System::Byte>(204)));
-            this->B_RemoveAll->Location = System::Drawing::Point(171, 522);
+            this->B_RemoveAll->Location = System::Drawing::Point(171, 503);
             this->B_RemoveAll->Name = L"B_RemoveAll";
             this->B_RemoveAll->Size = System::Drawing::Size(145, 52);
             this->B_RemoveAll->TabIndex = 1;
@@ -163,24 +186,9 @@ namespace Project1 {
             this->B_Remove->UseVisualStyleBackColor = true;
             this->B_Remove->Click += gcnew System::EventHandler(this, &MyForm::RemovePlayer);
             // 
-            // LB_PlayerList
-            // 
-            this->LB_PlayerList->Font = (gcnew System::Drawing::Font(L"Corbel", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-                                         static_cast<System::Byte>(204)));
-            this->LB_PlayerList->FormattingEnabled = true;
-            this->LB_PlayerList->ItemHeight = 19;
-            this->LB_PlayerList->Items->AddRange(gcnew cli::array< System::Object^  >(3)
-            {
-                L"Vnepolovaya", L"Deadthrow", L"Симела"
-            });
-            this->LB_PlayerList->Location = System::Drawing::Point(15, 19);
-            this->LB_PlayerList->Name = L"LB_PlayerList";
-            this->LB_PlayerList->Size = System::Drawing::Size(150, 555);
-            this->LB_PlayerList->TabIndex = 2;
-            // 
             // B_AddPlayer
             // 
-            this->B_AddPlayer->Font = (gcnew System::Drawing::Font(L"Corbel", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            this->B_AddPlayer->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                        static_cast<System::Byte>(204)));
             this->B_AddPlayer->Location = System::Drawing::Point(171, 62);
             this->B_AddPlayer->Name = L"B_AddPlayer";
@@ -196,6 +204,21 @@ namespace Project1 {
             this->toolTip1->InitialDelay = 1000;
             this->toolTip1->ReshowDelay = 100;
             this->toolTip1->ShowAlways = true;
+            // 
+            // LB_PlayerList
+            // 
+            this->LB_PlayerList->Font = (gcnew System::Drawing::Font(L"Candara", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                                         static_cast<System::Byte>(204)));
+            this->LB_PlayerList->FormattingEnabled = true;
+            this->LB_PlayerList->ItemHeight = 19;
+            this->LB_PlayerList->Items->AddRange(gcnew cli::array< System::Object^  >(3)
+            {
+                L"Vnepolovaya [+]", L"Deadthrow", L"Симела"
+            });
+            this->LB_PlayerList->Location = System::Drawing::Point(15, 19);
+            this->LB_PlayerList->Name = L"LB_PlayerList";
+            this->LB_PlayerList->Size = System::Drawing::Size(150, 536);
+            this->LB_PlayerList->TabIndex = 2;
             // 
             // MyForm
             // 
