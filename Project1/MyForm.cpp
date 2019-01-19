@@ -36,14 +36,22 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
     {
         for (int i = 0; i < LB_PlayerList->Items->Count; i++)
         {
-            if (LB_PlayerList->Items[i]->ToString() == TB_AddPlayerTextBox->Text)
+            if (LB_PlayerList->Items[i]->ToString() == (HealerCheck->Checked ? (TB_AddPlayerTextBox->Text + HealMarker) : TB_AddPlayerTextBox->Text))
             {
                 MessageBox::Show("Ётот игрок уже есть в списке!", "ѕредупреждение", MessageBoxButtons::OK, MessageBoxIcon::Information);
                 return;
             }
         }
 
-        LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text);
+        if (HealerCheck->Checked)
+        {
+            LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text + HealMarker);
+        }
+        else
+        {
+            LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text);
+        }
+        
         TB_AddPlayerTextBox->Text = nullptr;
     }
 }

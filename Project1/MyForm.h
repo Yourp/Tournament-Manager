@@ -18,6 +18,7 @@ namespace Project1 {
 		MyForm(void)
 		{
             bCanCheckTextInTextBox = true;
+            HealMarker = " [+]";
 
 			InitializeComponent();
 			//
@@ -37,30 +38,17 @@ namespace Project1 {
 			}
 		}
     private: System::Windows::Forms::TextBox^  TB_AddPlayerTextBox;
-    protected:
-
     private: System::Windows::Forms::Button^  B_AddPlayer;
     private: System::Windows::Forms::ListBox^  LB_PlayerList;
-
-
-
-
     private: System::Windows::Forms::ToolTip^  toolTip1;
+    private: System::Windows::Forms::CheckBox^  HealerCheck;
 
-    private: System::Windows::Forms::CheckBox^  checkBox1;
+
     private: System::Windows::Forms::GroupBox^  groupBox1;
     private: System::Windows::Forms::Button^  B_Remove;
-
     private: System::Windows::Forms::Button^  B_RemoveAll;
     private: System::Windows::Forms::Label^  label1;
     private: System::Windows::Forms::Timer^  timer1;
-
-
-
-
-
-
-
 
         System::ComponentModel::IContainer^  components;
     public:
@@ -71,19 +59,13 @@ namespace Project1 {
 
         void TextCorrecter(System::Object^  sender, System::EventArgs^  e);
 
-
-
-
-
-
-
-
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
 
         bool bCanCheckTextInTextBox;
+        String^ HealMarker;
 
 
 #pragma region Windows Form Designer generated code
@@ -97,7 +79,7 @@ namespace Project1 {
             this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
             this->label1 = (gcnew System::Windows::Forms::Label());
             this->TB_AddPlayerTextBox = (gcnew System::Windows::Forms::TextBox());
-            this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
+            this->HealerCheck = (gcnew System::Windows::Forms::CheckBox());
             this->B_RemoveAll = (gcnew System::Windows::Forms::Button());
             this->B_Remove = (gcnew System::Windows::Forms::Button());
             this->LB_PlayerList = (gcnew System::Windows::Forms::ListBox());
@@ -110,8 +92,8 @@ namespace Project1 {
             // groupBox1
             // 
             this->groupBox1->Controls->Add(this->label1);
+            this->groupBox1->Controls->Add(this->HealerCheck);
             this->groupBox1->Controls->Add(this->TB_AddPlayerTextBox);
-            this->groupBox1->Controls->Add(this->checkBox1);
             this->groupBox1->Controls->Add(this->B_RemoveAll);
             this->groupBox1->Controls->Add(this->B_Remove);
             this->groupBox1->Controls->Add(this->LB_PlayerList);
@@ -144,17 +126,17 @@ namespace Project1 {
             this->toolTip1->SetToolTip(this->TB_AddPlayerTextBox, L"Напишите ник участника");
             this->TB_AddPlayerTextBox->TextChanged += gcnew System::EventHandler(this, &MyForm::TextCorrecter);
             // 
-            // checkBox1
+            // HealerCheck
             // 
-            this->checkBox1->AutoSize = true;
-            this->checkBox1->Font = (gcnew System::Drawing::Font(L"Corbel", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-                                     static_cast<System::Byte>(204)));
-            this->checkBox1->Location = System::Drawing::Point(272, 37);
-            this->checkBox1->Name = L"checkBox1";
-            this->checkBox1->Size = System::Drawing::Size(54, 19);
-            this->checkBox1->TabIndex = 3;
-            this->checkBox1->Text = L"Хил\?";
-            this->checkBox1->UseVisualStyleBackColor = true;
+            this->HealerCheck->AutoSize = true;
+            this->HealerCheck->Font = (gcnew System::Drawing::Font(L"Corbel", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+                                       static_cast<System::Byte>(204)));
+            this->HealerCheck->Location = System::Drawing::Point(269, 34);
+            this->HealerCheck->Name = L"HealerCheck";
+            this->HealerCheck->Size = System::Drawing::Size(54, 19);
+            this->HealerCheck->TabIndex = 3;
+            this->HealerCheck->Text = L"Хил\?";
+            this->HealerCheck->UseVisualStyleBackColor = true;
             // 
             // B_RemoveAll
             // 
