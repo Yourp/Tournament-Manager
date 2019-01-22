@@ -1,9 +1,13 @@
 #include "MyForm.h"
+#include <iostream>
+#include <msclr/marshal_cppstd.h>
+
 //#include <cctype>
 
 using namespace System;
 using namespace Windows::Forms;
 using namespace Project1;
+using namespace msclr::interop;
 
 int main(array<String^>^ args)
 {
@@ -45,10 +49,12 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
         if (HealerCheck->Checked)
         {
             LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text + HealMarker);
+            SortList->AddHealer(marshal_as<std::string>(TB_AddPlayerTextBox->Text));
         }
         else
         {
             LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text);
+            SortList->AddDamager(marshal_as<std::string>(TB_AddPlayerTextBox->Text));
         }
         
         TB_AddPlayerTextBox->Text = nullptr;

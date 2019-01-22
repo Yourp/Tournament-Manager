@@ -1,7 +1,8 @@
 #pragma once
+
+#include "SpecSortList.h"
+
 #define HealMarker " [+]"
-
-
 
 namespace Project1 {
 
@@ -20,6 +21,7 @@ namespace Project1 {
 	public:
 		MyForm(void)
 		{
+            SortList = new SpecSortList();
             bCanCheckTextInTextBox = true;
 
 			InitializeComponent();
@@ -67,7 +69,7 @@ namespace Project1 {
 		/// </summary>
 
         bool bCanCheckTextInTextBox;
-
+        SpecSortList* SortList;
 
 
 #pragma region Windows Form Designer generated code
