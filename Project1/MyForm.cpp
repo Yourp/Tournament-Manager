@@ -56,7 +56,7 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
             LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text);
             SortList->AddDamager(marshal_as<std::string>(TB_AddPlayerTextBox->Text));
         }
-        
+
         TB_AddPlayerTextBox->Text = nullptr;
     }
 }

@@ -9,7 +9,7 @@ SpecSortList::SpecSortList()
 
 void SpecSortList::AddHealer(std::string Name)
 {
-    unsigned int index = 0;
+    uint8_t index = 0;
 
     for (auto itr : HealerList)
         index++;
@@ -19,7 +19,7 @@ void SpecSortList::AddHealer(std::string Name)
 
 void SpecSortList::AddDamager(std::string Name)
 {
-    unsigned int index = 0;
+    uint8_t index = 0;
 
     for (auto itr : DamagerList)
         index++;

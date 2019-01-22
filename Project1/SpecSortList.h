@@ -15,7 +15,7 @@ public:
 
 private:
 
-    std::map<unsigned int, std::string> HealerList;
-    std::map<unsigned int, std::string> DamagerList;
+    std::map<uint8_t, std::string> HealerList;
+    std::map<uint8_t, std::string> DamagerList;
 };
 

@@ -36,6 +36,12 @@ namespace Project1 {
 		/// </summary>
 		~MyForm()
 		{
+            if (SortList)
+            {
+                delete SortList;
+                SortList = nullptr;
+            }
+
 			if (components)
 			{
 				delete components;
