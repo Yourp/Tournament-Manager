@@ -1,4 +1,7 @@
 #pragma once
+#define HealMarker " [+]"
+
+
 
 namespace Project1 {
 
@@ -18,7 +21,6 @@ namespace Project1 {
 		MyForm(void)
 		{
             bCanCheckTextInTextBox = true;
-            HealMarker = " [+]";
 
 			InitializeComponent();
 			//
@@ -50,30 +52,6 @@ namespace Project1 {
     private: System::Windows::Forms::Label^  label1;
     private: System::Windows::Forms::ListBox^  LB_PlayerList;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         System::ComponentModel::IContainer^  components;
     public:
     
@@ -89,7 +67,7 @@ namespace Project1 {
 		/// </summary>
 
         bool bCanCheckTextInTextBox;
-        String^ HealMarker;
+
 
 
 #pragma region Windows Form Designer generated code
@@ -99,6 +77,7 @@ namespace Project1 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+            
             this->components = (gcnew System::ComponentModel::Container());
             this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
             this->label1 = (gcnew System::Windows::Forms::Label());

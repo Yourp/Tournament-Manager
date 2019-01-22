@@ -1,5 +1,4 @@
 #include "MyForm.h"
-#include <iostream>
 //#include <cctype>
 
 using namespace System;
