@@ -1,4 +1,5 @@
 #include "MyForm.h"
+#include "Player.h"
 #include <iostream>
 #include <msclr/marshal_cppstd.h>
 
@@ -9,7 +10,7 @@ using namespace Windows::Forms;
 using namespace Project1;
 using namespace msclr::interop;
 
-int main(array<String^>^ args)
+int main(array<String^>^ /*args*/)
 {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
@@ -22,7 +23,10 @@ int main(array<String^>^ args)
 void MyForm::RemovePlayer(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
 {
     if (LB_PlayerList->SelectedIndex >= 0)
+    {
+        players->DeletePlayer(marshal_as<std::string>(LB_PlayerList->Items[LB_PlayerList->SelectedIndex]->ToString()));
         LB_PlayerList->Items->RemoveAt(LB_PlayerList->SelectedIndex);
+    }
 }
 
 void MyForm::RemoveAllPlayers(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
@@ -30,6 +34,7 @@ void MyForm::RemoveAllPlayers(System::Object ^ /*sender*/, System::EventArgs ^ /
     if (MessageBox::Show("Удалить всех игроков из списка?", "Очистка списка", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == Windows::Forms::DialogResult::Yes)
     {
         LB_PlayerList->Items->Clear();
+        players->ClearAllPlayers();
     }
 }
 
@@ -49,12 +54,12 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
         if (HealerCheck->Checked)
         {
             LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text + HealMarker);
-            SortList->AddHealer(marshal_as<std::string>(TB_AddPlayerTextBox->Text));
+            players->AddPlayerInList(marshal_as<std::string>(TB_AddPlayerTextBox->Text), new Player(SpecHealer, players->CreatePlayerID()));
         }
         else
         {
             LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text);
-            SortList->AddDamager(marshal_as<std::string>(TB_AddPlayerTextBox->Text));
+            players->AddPlayerInList(marshal_as<std::string>(TB_AddPlayerTextBox->Text), new Player(SpecDamager, players->CreatePlayerID()));
         }
 
         TB_AddPlayerTextBox->Text = nullptr;
