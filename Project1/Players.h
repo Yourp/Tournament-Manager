@@ -22,6 +22,7 @@ public:
     void ClearAllTeams();
     bool SortTeams();
     uint8_t CanBegin() const;
+    void HandleSpecCounts(uint8_t specType, bool remove = false);
 
 
     //uint8_t CreatePlayerID();

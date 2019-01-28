@@ -8,6 +8,9 @@
 Players::Players()
 {
     std::srand(uint32_t(time(NULL)));
+
+    healersCount = NULL;
+    damagersCount = NULL;
 }
 
 Players::~Players()
@@ -19,6 +22,7 @@ Players::~Players()
 void Players::AddPlayerInList(std::string name, Player * player)
 {
     pList[name] = player;
+    HandleSpecCounts(player->GetSpecType());
 }
 
 void Players::DeletePlayer(std::string name)
@@ -29,6 +33,7 @@ void Players::DeletePlayer(std::string name)
     {
         if (Player* player = itr->second)
         {
+            HandleSpecCounts(player->GetSpecType(), true);
             //FreeIDs.insert(player->GetID());
             pList.erase(itr);
             delete player;
@@ -42,6 +47,9 @@ void Players::ClearAllPlayers()
         delete itr.second;
 
     pList.clear();
+
+    healersCount = NULL;
+    damagersCount = NULL;
 }
 
 void Players::ClearAllTeams()
@@ -92,6 +100,17 @@ uint8_t Players::CanBegin() const
         return BE_HealersCount;
 
     return BE_None;
+}
+
+void Players::HandleSpecCounts(uint8_t specType, bool remove)
+{
+    if (specType == SpecHealer)
+    {
+        healersCount = remove ? --healersCount : ++healersCount;
+        return;
+    }
+
+    damagersCount = remove ? --damagersCount : ++damagersCount;
 }
 
 // uint8_t Players::CreatePlayerID()

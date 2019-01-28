@@ -57,7 +57,7 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
         {
             LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text + HealMarker);
 
-            std::string name = marshal_as<std::string>(TB_AddPlayerTextBox->Text);
+            std::string name = marshal_as<std::string>(TB_AddPlayerTextBox->Text + HealMarker);
             players->AddPlayerInList(name, new Player(SpecHealer, name));
         }
         else
