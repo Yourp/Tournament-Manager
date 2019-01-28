@@ -14,6 +14,7 @@ class Players
 
 public:
     Players();
+    ~Players();
 
     void AddPlayerInList(std::string name, Player* player);
     void DeletePlayer(std::string name);

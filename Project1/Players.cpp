@@ -5,6 +5,11 @@ Players::Players()
 {
 }
 
+Players::~Players()
+{
+    ClearAllPlayers();
+}
+
 void Players::AddPlayerInList(std::string name, Player * player)
 {
     pList[name] = player;
