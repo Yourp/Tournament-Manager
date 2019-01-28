@@ -26,6 +26,7 @@ void MyForm::RemovePlayer(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/
     {
         players->DeletePlayer(marshal_as<std::string>(LB_PlayerList->Items[LB_PlayerList->SelectedIndex]->ToString()));
         LB_PlayerList->Items->RemoveAt(LB_PlayerList->SelectedIndex);
+        HandleBegin();
     }
 }
 
@@ -35,6 +36,7 @@ void MyForm::RemoveAllPlayers(System::Object ^ /*sender*/, System::EventArgs ^ /
     {
         LB_PlayerList->Items->Clear();
         players->ClearAllPlayers();
+        HandleBegin();
     }
 }
 
@@ -54,16 +56,27 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
         if (HealerCheck->Checked)
         {
             LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text + HealMarker);
-            players->AddPlayerInList(marshal_as<std::string>(TB_AddPlayerTextBox->Text), new Player(SpecHealer, players->CreatePlayerID()));
+
+            std::string name = marshal_as<std::string>(TB_AddPlayerTextBox->Text);
+            players->AddPlayerInList(name, new Player(SpecHealer, name));
         }
         else
         {
             LB_PlayerList->Items->Add(TB_AddPlayerTextBox->Text);
-            players->AddPlayerInList(marshal_as<std::string>(TB_AddPlayerTextBox->Text), new Player(SpecDamager, players->CreatePlayerID()));
+
+            std::string name = marshal_as<std::string>(TB_AddPlayerTextBox->Text);
+            players->AddPlayerInList(name, new Player(SpecDamager, name));
         }
+
+        HandleBegin();
 
         TB_AddPlayerTextBox->Text = nullptr;
     }
+}
+
+void Project1::MyForm::BeginTournament(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+{
+    players->SortTeams();
 }
 
 void MyForm::TextCorrecter(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
@@ -103,4 +116,29 @@ void MyForm::TextCorrecter(System::Object ^ /*sender*/, System::EventArgs ^ /*e*
         TB_AddPlayerTextBox->SelectionStart = Section;
         bCanCheckTextInTextBox = true;
     }
+}
+
+void Project1::MyForm::HandleBegin()
+{
+    switch (players->CanBegin())
+    {
+        case BE_PlayersCount:
+        {
+            L_BeginErrors->Text = BEGIN_ERROR_PLAYERS_COUNT;
+            break;
+        }
+        case BE_HealersCount:
+        {
+            L_BeginErrors->Text = BEGIN_ERROR_HEALERS_COUNT;
+            break;
+        }
+        default:
+        {
+            B_Begin->Enabled = true;
+            L_BeginErrors->Text = BEGIN_ERROR_NONE;
+            return;
+        }
+    }
+    
+    B_Begin->Enabled = false;
 }

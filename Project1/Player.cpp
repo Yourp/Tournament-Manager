@@ -2,12 +2,12 @@
 
 
 
-Player::Player(uint8_t specType, uint8_t id) : SpecType(specType), ID(id)
+Player::Player(uint8_t specType, std::string name) : SpecType(specType), Name(name)
 {
 
 }
 
-uint8_t Player::GetID()
+uint8_t Player::GetSpecType()
 {
-    return ID;
+    return SpecType;
 }

@@ -10,13 +10,12 @@ enum PlayerSpecType
 class Player
 {
 public:
-    Player(uint8_t specType, uint8_t id);
+    Player(uint8_t specType, std::string name);
 
-    uint8_t GetID();
-
+    uint8_t GetSpecType();
 private:
 
     uint8_t SpecType;
-    uint8_t ID;
+    std::string Name;
 };
 

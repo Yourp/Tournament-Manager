@@ -5,8 +5,8 @@
 #include "Team.h"
 
 typedef std::map<std::string, Player*> PlayerList;
-typedef std::map<uint8_t, Team*> TeamList;
-typedef std::set<uint8_t> FreeIDList;
+typedef std::set<Team*> TeamList;
+//typedef std::set<uint8_t> FreeIDList;
 
 
 class Players
@@ -19,14 +19,20 @@ public:
     void AddPlayerInList(std::string name, Player* player);
     void DeletePlayer(std::string name);
     void ClearAllPlayers();
+    void ClearAllTeams();
+    bool SortTeams();
+    uint8_t CanBegin() const;
 
-    uint8_t CreatePlayerID();
+
+    //uint8_t CreatePlayerID();
     
 
 private:
 
     PlayerList pList;
     TeamList tList;
-    FreeIDList FreeIDs;
+    uint8_t healersCount;
+    uint8_t damagersCount;
+    //FreeIDList FreeIDs;
 };
 
