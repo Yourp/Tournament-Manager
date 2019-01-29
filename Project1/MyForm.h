@@ -81,8 +81,9 @@ namespace Project1 {
     private: System::Windows::Forms::Label^  L_BeginErrors;
     private: System::Windows::Forms::Button^  B_Begin;
     private: System::Windows::Forms::GroupBox^  groupBox2;
-    private: System::Windows::Forms::Button^  button1;
+
     private: System::Windows::Forms::GroupBox^  groupBox3;
+    private: System::Windows::Forms::Button^  B_Winner;
 
 
 
@@ -182,7 +183,7 @@ namespace Project1 {
             this->B_Begin = (gcnew System::Windows::Forms::Button());
             this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
             this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
-            this->button1 = (gcnew System::Windows::Forms::Button());
+            this->B_Winner = (gcnew System::Windows::Forms::Button());
             columnHeader1 = (gcnew System::Windows::Forms::ColumnHeader());
             columnHeader2 = (gcnew System::Windows::Forms::ColumnHeader());
             columnHeader3 = (gcnew System::Windows::Forms::ColumnHeader());
@@ -218,10 +219,10 @@ namespace Project1 {
                 listViewItem1, listViewItem2,
                     listViewItem3
             });
-            this->listView1->Location = System::Drawing::Point(15, 19);
+            this->listView1->Location = System::Drawing::Point(6, 19);
             this->listView1->MultiSelect = false;
             this->listView1->Name = L"listView1";
-            this->listView1->Size = System::Drawing::Size(380, 418);
+            this->listView1->Size = System::Drawing::Size(380, 377);
             this->listView1->TabIndex = 7;
             this->listView1->UseCompatibleStateImageBehavior = false;
             this->listView1->View = System::Windows::Forms::View::Details;
@@ -245,11 +246,11 @@ namespace Project1 {
             this->groupBox1->Controls->Add(this->B_RemoveAll);
             this->groupBox1->Controls->Add(this->B_Remove);
             this->groupBox1->Controls->Add(this->B_AddPlayer);
-            this->groupBox1->Font = (gcnew System::Drawing::Font(L"Candara", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            this->groupBox1->Font = (gcnew System::Drawing::Font(L"Candara", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                      static_cast<System::Byte>(204)));
             this->groupBox1->Location = System::Drawing::Point(12, 77);
             this->groupBox1->Name = L"groupBox1";
-            this->groupBox1->Size = System::Drawing::Size(329, 556);
+            this->groupBox1->Size = System::Drawing::Size(299, 546);
             this->groupBox1->TabIndex = 4;
             this->groupBox1->TabStop = false;
             this->groupBox1->Text = L"Регистрация на турнир";
@@ -257,7 +258,7 @@ namespace Project1 {
             // label1
             // 
             this->label1->AutoSize = true;
-            this->label1->Location = System::Drawing::Point(172, 19);
+            this->label1->Location = System::Drawing::Point(163, 19);
             this->label1->Name = L"label1";
             this->label1->Size = System::Drawing::Size(67, 14);
             this->label1->TabIndex = 4;
@@ -273,7 +274,7 @@ namespace Project1 {
             {
                 L"Vnepolovaya [+]", L"Deadthrow", L"Симела"
             });
-            this->LB_PlayerList->Location = System::Drawing::Point(15, 19);
+            this->LB_PlayerList->Location = System::Drawing::Point(6, 19);
             this->LB_PlayerList->Name = L"LB_PlayerList";
             this->LB_PlayerList->Size = System::Drawing::Size(150, 517);
             this->LB_PlayerList->TabIndex = 2;
@@ -281,21 +282,21 @@ namespace Project1 {
             // HealerCheck
             // 
             this->HealerCheck->AutoSize = true;
-            this->HealerCheck->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+            this->HealerCheck->Font = (gcnew System::Drawing::Font(L"Candara", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                        static_cast<System::Byte>(204)));
-            this->HealerCheck->Location = System::Drawing::Point(269, 34);
+            this->HealerCheck->Location = System::Drawing::Point(162, 63);
             this->HealerCheck->Name = L"HealerCheck";
-            this->HealerCheck->Size = System::Drawing::Size(56, 22);
+            this->HealerCheck->Size = System::Drawing::Size(96, 19);
             this->HealerCheck->TabIndex = 3;
-            this->HealerCheck->Text = L"Хил\?";
+            this->HealerCheck->Text = L"Это хиллер\?";
             this->HealerCheck->UseVisualStyleBackColor = true;
             // 
             // TB_AddPlayerTextBox
             // 
-            this->TB_AddPlayerTextBox->Location = System::Drawing::Point(171, 34);
+            this->TB_AddPlayerTextBox->Location = System::Drawing::Point(162, 35);
             this->TB_AddPlayerTextBox->MaxLength = 12;
             this->TB_AddPlayerTextBox->Name = L"TB_AddPlayerTextBox";
-            this->TB_AddPlayerTextBox->Size = System::Drawing::Size(95, 22);
+            this->TB_AddPlayerTextBox->Size = System::Drawing::Size(131, 22);
             this->TB_AddPlayerTextBox->TabIndex = 0;
             this->toolTip1->SetToolTip(this->TB_AddPlayerTextBox, L"Напишите ник участника");
             this->TB_AddPlayerTextBox->TextChanged += gcnew System::EventHandler(this, &MyForm::TextCorrecter);
@@ -305,9 +306,9 @@ namespace Project1 {
             this->B_RemoveAll->Cursor = System::Windows::Forms::Cursors::Hand;
             this->B_RemoveAll->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                        static_cast<System::Byte>(204)));
-            this->B_RemoveAll->Location = System::Drawing::Point(175, 484);
+            this->B_RemoveAll->Location = System::Drawing::Point(162, 485);
             this->B_RemoveAll->Name = L"B_RemoveAll";
-            this->B_RemoveAll->Size = System::Drawing::Size(145, 52);
+            this->B_RemoveAll->Size = System::Drawing::Size(131, 52);
             this->B_RemoveAll->TabIndex = 1;
             this->B_RemoveAll->Text = L"Очистить список";
             this->toolTip1->SetToolTip(this->B_RemoveAll, L"Удаление всех игроков из списка");
@@ -320,9 +321,9 @@ namespace Project1 {
             this->B_Remove->FlatStyle = System::Windows::Forms::FlatStyle::System;
             this->B_Remove->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                     static_cast<System::Byte>(204)));
-            this->B_Remove->Location = System::Drawing::Point(171, 329);
+            this->B_Remove->Location = System::Drawing::Point(162, 298);
             this->B_Remove->Name = L"B_Remove";
-            this->B_Remove->Size = System::Drawing::Size(145, 52);
+            this->B_Remove->Size = System::Drawing::Size(131, 52);
             this->B_Remove->TabIndex = 1;
             this->B_Remove->Text = L"Удалить игрока";
             this->B_Remove->UseVisualStyleBackColor = true;
@@ -334,9 +335,9 @@ namespace Project1 {
             this->B_AddPlayer->FlatStyle = System::Windows::Forms::FlatStyle::System;
             this->B_AddPlayer->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                        static_cast<System::Byte>(204)));
-            this->B_AddPlayer->Location = System::Drawing::Point(171, 62);
+            this->B_AddPlayer->Location = System::Drawing::Point(162, 88);
             this->B_AddPlayer->Name = L"B_AddPlayer";
-            this->B_AddPlayer->Size = System::Drawing::Size(145, 52);
+            this->B_AddPlayer->Size = System::Drawing::Size(131, 52);
             this->B_AddPlayer->TabIndex = 1;
             this->B_AddPlayer->Text = L"Добавить игрока";
             this->B_AddPlayer->UseVisualStyleBackColor = true;
@@ -428,7 +429,6 @@ namespace Project1 {
             // 
             // P_CurArena
             // 
-            this->P_CurArena->Controls->Add(this->button1);
             this->P_CurArena->Controls->Add(this->listView2);
             this->P_CurArena->Controls->Add(this->label2);
             this->P_CurArena->Controls->Add(this->listView3);
@@ -436,7 +436,7 @@ namespace Project1 {
                                       static_cast<System::Byte>(204)));
             this->P_CurArena->Location = System::Drawing::Point(12, 12);
             this->P_CurArena->Name = L"P_CurArena";
-            this->P_CurArena->Size = System::Drawing::Size(747, 56);
+            this->P_CurArena->Size = System::Drawing::Size(697, 56);
             this->P_CurArena->TabIndex = 9;
             this->P_CurArena->TabStop = false;
             this->P_CurArena->Text = L"Текущая арена";
@@ -446,7 +446,7 @@ namespace Project1 {
             this->L_BeginErrors->AutoSize = true;
             this->L_BeginErrors->Font = (gcnew System::Drawing::Font(L"Candara", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
                                          static_cast<System::Byte>(204)));
-            this->L_BeginErrors->Location = System::Drawing::Point(166, 46);
+            this->L_BeginErrors->Location = System::Drawing::Point(157, 33);
             this->L_BeginErrors->Name = L"L_BeginErrors";
             this->L_BeginErrors->Size = System::Drawing::Size(39, 15);
             this->L_BeginErrors->TabIndex = 5;
@@ -461,7 +461,7 @@ namespace Project1 {
             this->B_Begin->Font = (gcnew System::Drawing::Font(L"Candara", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                    static_cast<System::Byte>(204)));
             this->B_Begin->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-            this->B_Begin->Location = System::Drawing::Point(15, 26);
+            this->B_Begin->Location = System::Drawing::Point(6, 14);
             this->B_Begin->Name = L"B_Begin";
             this->B_Begin->Size = System::Drawing::Size(145, 52);
             this->B_Begin->TabIndex = 1;
@@ -473,32 +473,44 @@ namespace Project1 {
             // groupBox2
             // 
             this->groupBox2->Controls->Add(this->listView1);
-            this->groupBox2->Location = System::Drawing::Point(349, 77);
+            this->groupBox2->Font = (gcnew System::Drawing::Font(L"Candara", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                                     static_cast<System::Byte>(204)));
+            this->groupBox2->Location = System::Drawing::Point(317, 140);
             this->groupBox2->Name = L"groupBox2";
-            this->groupBox2->Size = System::Drawing::Size(410, 452);
+            this->groupBox2->Size = System::Drawing::Size(392, 402);
             this->groupBox2->TabIndex = 10;
             this->groupBox2->TabStop = false;
-            this->groupBox2->Text = L"groupBox2";
+            this->groupBox2->Text = L"Таблица команд с ведением счета";
             // 
             // groupBox3
             // 
             this->groupBox3->Controls->Add(this->B_Begin);
             this->groupBox3->Controls->Add(this->L_BeginErrors);
-            this->groupBox3->Location = System::Drawing::Point(349, 535);
+            this->groupBox3->Font = (gcnew System::Drawing::Font(L"Candara", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                                     static_cast<System::Byte>(204)));
+            this->groupBox3->Location = System::Drawing::Point(317, 548);
             this->groupBox3->Name = L"groupBox3";
-            this->groupBox3->Size = System::Drawing::Size(410, 98);
+            this->groupBox3->Size = System::Drawing::Size(392, 75);
             this->groupBox3->TabIndex = 11;
             this->groupBox3->TabStop = false;
-            this->groupBox3->Text = L"groupBox3";
+            this->groupBox3->Text = L"Панель управления турниром";
             // 
-            // button1
+            // B_Winner
             // 
-            this->button1->Location = System::Drawing::Point(691, 19);
-            this->button1->Name = L"button1";
-            this->button1->Size = System::Drawing::Size(41, 26);
-            this->button1->TabIndex = 9;
-            this->button1->Text = L"button1";
-            this->button1->UseVisualStyleBackColor = true;
+            this->B_Winner->BackColor = System::Drawing::SystemColors::ControlDark;
+            this->B_Winner->Cursor = System::Windows::Forms::Cursors::Hand;
+            this->B_Winner->Enabled = false;
+            this->B_Winner->FlatStyle = System::Windows::Forms::FlatStyle::System;
+            this->B_Winner->Font = (gcnew System::Drawing::Font(L"Candara", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                                    static_cast<System::Byte>(204)));
+            this->B_Winner->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+            this->B_Winner->Location = System::Drawing::Point(323, 83);
+            this->B_Winner->Name = L"B_Winner";
+            this->B_Winner->Size = System::Drawing::Size(386, 51);
+            this->B_Winner->TabIndex = 1;
+            this->B_Winner->Text = L"Выбрать победителя!";
+            this->B_Winner->UseMnemonic = false;
+            this->B_Winner->UseVisualStyleBackColor = true;
             // 
             // MyForm
             // 
@@ -506,7 +518,8 @@ namespace Project1 {
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
             this->BackColor = System::Drawing::SystemColors::ControlDarkDark;
             this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
-            this->ClientSize = System::Drawing::Size(772, 658);
+            this->ClientSize = System::Drawing::Size(722, 638);
+            this->Controls->Add(this->B_Winner);
             this->Controls->Add(this->groupBox3);
             this->Controls->Add(this->groupBox2);
             this->Controls->Add(this->P_CurArena);
@@ -515,8 +528,8 @@ namespace Project1 {
             this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
             this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedToolWindow;
             this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
-            this->MaximumSize = System::Drawing::Size(788, 692);
-            this->MinimumSize = System::Drawing::Size(788, 692);
+            this->MaximumSize = System::Drawing::Size(738, 672);
+            this->MinimumSize = System::Drawing::Size(738, 672);
             this->Name = L"MyForm";
             this->Text = L"Black Axe";
             this->groupBox1->ResumeLayout(false);
