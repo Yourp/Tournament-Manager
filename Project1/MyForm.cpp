@@ -42,6 +42,21 @@ void MyForm::RemoveAllPlayers(System::Object ^ /*sender*/, System::EventArgs ^ /
 
 void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* e*/)
 {
+    System::Windows::Forms::ListViewItem^  listff = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
+    {
+        L"Vnep [+]",
+            L"Êëjkj", L"99 - 77"
+    }, -1));
+
+    uint32_t win = 6;
+    uint32_t lose = 45;
+
+    listff->SubItems[2]->Text = Convert::ToString(win);
+    listff->SubItems[2]->Text += " - ";
+    listff->SubItems[2]->Text += Convert::ToString(lose);
+
+    //System::Windows::Forms::ListViewItem^ tt = listView1->FindItemWithText("Vnep [+]");
+
     if (TB_AddPlayerTextBox->Text->Length)
     {
         for (int i = 0; i < LB_PlayerList->Items->Count; i++)
