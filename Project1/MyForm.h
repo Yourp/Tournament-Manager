@@ -71,11 +71,14 @@ namespace Project1 {
     private: System::Windows::Forms::Button^  B_RemoveAll;
     private: System::Windows::Forms::Label^  label1;
     private: System::Windows::Forms::ListBox^  LB_PlayerList;
+    private: System::Windows::Forms::ListView^  LV_TeamList;
+    private: System::Windows::Forms::ListView^  LV_Team_1;
+    private: System::Windows::Forms::ListView^  LV_Team_2;
 
 
-    private: System::Windows::Forms::ListView^  listView1;
-    private: System::Windows::Forms::ListView^  listView2;
-    private: System::Windows::Forms::ListView^  listView3;
+
+
+
     private: System::Windows::Forms::Label^  label2;
     private: System::Windows::Forms::GroupBox^  P_CurArena;
     private: System::Windows::Forms::Label^  L_BeginErrors;
@@ -165,7 +168,7 @@ namespace Project1 {
             System::Windows::Forms::ColumnHeader^  columnHeader6;
             System::Windows::Forms::ColumnHeader^  columnHeader7;
             System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-            this->listView1 = (gcnew System::Windows::Forms::ListView());
+            this->LV_TeamList = (gcnew System::Windows::Forms::ListView());
             this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
             this->label1 = (gcnew System::Windows::Forms::Label());
             this->LB_PlayerList = (gcnew System::Windows::Forms::ListBox());
@@ -175,8 +178,8 @@ namespace Project1 {
             this->B_Remove = (gcnew System::Windows::Forms::Button());
             this->B_AddPlayer = (gcnew System::Windows::Forms::Button());
             this->toolTip1 = (gcnew System::Windows::Forms::ToolTip(this->components));
-            this->listView2 = (gcnew System::Windows::Forms::ListView());
-            this->listView3 = (gcnew System::Windows::Forms::ListView());
+            this->LV_Team_1 = (gcnew System::Windows::Forms::ListView());
+            this->LV_Team_2 = (gcnew System::Windows::Forms::ListView());
             this->label2 = (gcnew System::Windows::Forms::Label());
             this->P_CurArena = (gcnew System::Windows::Forms::GroupBox());
             this->L_BeginErrors = (gcnew System::Windows::Forms::Label());
@@ -202,30 +205,30 @@ namespace Project1 {
             columnHeader1->Text = L"Игрок1";
             columnHeader1->Width = 152;
             // 
-            // listView1
+            // LV_TeamList
             // 
-            this->listView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(3)
+            this->LV_TeamList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(3)
             {
                 columnHeader1, columnHeader2,
                     columnHeader3
             });
-            this->listView1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-                                     static_cast<System::Byte>(204)));
-            this->listView1->FullRowSelect = true;
-            this->listView1->GridLines = true;
-            this->listView1->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
-            this->listView1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(3)
+            this->LV_TeamList->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                                       static_cast<System::Byte>(204)));
+            this->LV_TeamList->FullRowSelect = true;
+            this->LV_TeamList->GridLines = true;
+            this->LV_TeamList->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
+            this->LV_TeamList->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(3)
             {
                 listViewItem1, listViewItem2,
                     listViewItem3
             });
-            this->listView1->Location = System::Drawing::Point(6, 19);
-            this->listView1->MultiSelect = false;
-            this->listView1->Name = L"listView1";
-            this->listView1->Size = System::Drawing::Size(380, 377);
-            this->listView1->TabIndex = 7;
-            this->listView1->UseCompatibleStateImageBehavior = false;
-            this->listView1->View = System::Windows::Forms::View::Details;
+            this->LV_TeamList->Location = System::Drawing::Point(6, 19);
+            this->LV_TeamList->MultiSelect = false;
+            this->LV_TeamList->Name = L"LV_TeamList";
+            this->LV_TeamList->Size = System::Drawing::Size(380, 377);
+            this->LV_TeamList->TabIndex = 7;
+            this->LV_TeamList->UseCompatibleStateImageBehavior = false;
+            this->LV_TeamList->View = System::Windows::Forms::View::Details;
             // 
             // columnHeader2
             // 
@@ -350,28 +353,28 @@ namespace Project1 {
             this->toolTip1->ReshowDelay = 100;
             this->toolTip1->ShowAlways = true;
             // 
-            // listView2
+            // LV_Team_1
             // 
-            this->listView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(2)
+            this->LV_Team_1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(2)
             {
                 columnHeader4, columnHeader5
             });
-            this->listView2->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            this->LV_Team_1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                      static_cast<System::Byte>(204)));
-            this->listView2->FullRowSelect = true;
-            this->listView2->GridLines = true;
-            this->listView2->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
-            this->listView2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(1)
+            this->LV_Team_1->FullRowSelect = true;
+            this->LV_Team_1->GridLines = true;
+            this->LV_Team_1->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
+            this->LV_Team_1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(1)
             {
                 listViewItem4
             });
-            this->listView2->Location = System::Drawing::Point(14, 19);
-            this->listView2->MultiSelect = false;
-            this->listView2->Name = L"listView2";
-            this->listView2->Size = System::Drawing::Size(312, 25);
-            this->listView2->TabIndex = 7;
-            this->listView2->UseCompatibleStateImageBehavior = false;
-            this->listView2->View = System::Windows::Forms::View::Details;
+            this->LV_Team_1->Location = System::Drawing::Point(14, 19);
+            this->LV_Team_1->MultiSelect = false;
+            this->LV_Team_1->Name = L"LV_Team_1";
+            this->LV_Team_1->Size = System::Drawing::Size(312, 25);
+            this->LV_Team_1->TabIndex = 7;
+            this->LV_Team_1->UseCompatibleStateImageBehavior = false;
+            this->LV_Team_1->View = System::Windows::Forms::View::Details;
             // 
             // columnHeader4
             // 
@@ -383,28 +386,28 @@ namespace Project1 {
             columnHeader5->Text = L"Игрок2";
             columnHeader5->Width = 152;
             // 
-            // listView3
+            // LV_Team_2
             // 
-            this->listView3->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(2)
+            this->LV_Team_2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(2)
             {
                 columnHeader6, columnHeader7
             });
-            this->listView3->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+            this->LV_Team_2->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                      static_cast<System::Byte>(204)));
-            this->listView3->FullRowSelect = true;
-            this->listView3->GridLines = true;
-            this->listView3->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
-            this->listView3->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(1)
+            this->LV_Team_2->FullRowSelect = true;
+            this->LV_Team_2->GridLines = true;
+            this->LV_Team_2->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
+            this->LV_Team_2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(1)
             {
                 listViewItem5
             });
-            this->listView3->Location = System::Drawing::Point(372, 19);
-            this->listView3->MultiSelect = false;
-            this->listView3->Name = L"listView3";
-            this->listView3->Size = System::Drawing::Size(312, 25);
-            this->listView3->TabIndex = 7;
-            this->listView3->UseCompatibleStateImageBehavior = false;
-            this->listView3->View = System::Windows::Forms::View::Details;
+            this->LV_Team_2->Location = System::Drawing::Point(372, 19);
+            this->LV_Team_2->MultiSelect = false;
+            this->LV_Team_2->Name = L"LV_Team_2";
+            this->LV_Team_2->Size = System::Drawing::Size(312, 25);
+            this->LV_Team_2->TabIndex = 7;
+            this->LV_Team_2->UseCompatibleStateImageBehavior = false;
+            this->LV_Team_2->View = System::Windows::Forms::View::Details;
             // 
             // columnHeader6
             // 
@@ -429,9 +432,9 @@ namespace Project1 {
             // 
             // P_CurArena
             // 
-            this->P_CurArena->Controls->Add(this->listView2);
+            this->P_CurArena->Controls->Add(this->LV_Team_1);
             this->P_CurArena->Controls->Add(this->label2);
-            this->P_CurArena->Controls->Add(this->listView3);
+            this->P_CurArena->Controls->Add(this->LV_Team_2);
             this->P_CurArena->Font = (gcnew System::Drawing::Font(L"Candara", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                       static_cast<System::Byte>(204)));
             this->P_CurArena->Location = System::Drawing::Point(12, 12);
@@ -472,7 +475,7 @@ namespace Project1 {
             // 
             // groupBox2
             // 
-            this->groupBox2->Controls->Add(this->listView1);
+            this->groupBox2->Controls->Add(this->LV_TeamList);
             this->groupBox2->Font = (gcnew System::Drawing::Font(L"Candara", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                      static_cast<System::Byte>(204)));
             this->groupBox2->Location = System::Drawing::Point(317, 140);
@@ -531,7 +534,7 @@ namespace Project1 {
             this->MaximumSize = System::Drawing::Size(738, 672);
             this->MinimumSize = System::Drawing::Size(738, 672);
             this->Name = L"MyForm";
-            this->Text = L"Black Axe";
+            this->Text = L"Tournament Manager";
             this->groupBox1->ResumeLayout(false);
             this->groupBox1->PerformLayout();
             this->P_CurArena->ResumeLayout(false);
