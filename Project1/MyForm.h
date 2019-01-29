@@ -446,7 +446,7 @@ namespace Project1 {
             this->L_BeginErrors->AutoSize = true;
             this->L_BeginErrors->Font = (gcnew System::Drawing::Font(L"Candara", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
                                          static_cast<System::Byte>(204)));
-            this->L_BeginErrors->Location = System::Drawing::Point(157, 33);
+            this->L_BeginErrors->Location = System::Drawing::Point(168, 33);
             this->L_BeginErrors->Name = L"L_BeginErrors";
             this->L_BeginErrors->Size = System::Drawing::Size(39, 15);
             this->L_BeginErrors->TabIndex = 5;
@@ -463,7 +463,7 @@ namespace Project1 {
             this->B_Begin->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
             this->B_Begin->Location = System::Drawing::Point(6, 14);
             this->B_Begin->Name = L"B_Begin";
-            this->B_Begin->Size = System::Drawing::Size(145, 52);
+            this->B_Begin->Size = System::Drawing::Size(135, 51);
             this->B_Begin->TabIndex = 1;
             this->B_Begin->Text = L"Начать турнир!";
             this->B_Begin->UseMnemonic = false;
