@@ -1,5 +1,6 @@
 #include "Players.h"
 #include "MyForm.h"
+#include "Team.h"
 #include <algorithm>
 #include <vector>
 #include <ctime>
@@ -87,6 +88,9 @@ bool Players::SortTeams()
 
     for (; i < damagers.size(); i++)
         tList.insert(new Team(&damagers[i++], &damagers[i]));
+
+    for (auto itr : tList)
+        itr->CreateOponentList(tList, itr);
 
     return false;
 }

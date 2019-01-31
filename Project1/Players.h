@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Team.h"
 
+class Team;
+
 typedef std::map<std::string, Player*> PlayerList;
 typedef std::set<Team*> TeamList;
 //typedef std::set<uint8_t> FreeIDList;

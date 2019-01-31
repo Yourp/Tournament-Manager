@@ -136,6 +136,12 @@ namespace Project1 {
 		{
             this->components = (gcnew System::ComponentModel::Container());
             System::Windows::Forms::ColumnHeader^  columnHeader1;
+            System::Windows::Forms::ColumnHeader^  columnHeader2;
+            System::Windows::Forms::ColumnHeader^  columnHeader3;
+            System::Windows::Forms::ColumnHeader^  columnHeader4;
+            System::Windows::Forms::ColumnHeader^  columnHeader5;
+            System::Windows::Forms::ColumnHeader^  columnHeader6;
+            System::Windows::Forms::ColumnHeader^  columnHeader7;
             System::Windows::Forms::ListViewItem^  listViewItem1 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
             {
                 L"Tilandra [+]",
@@ -151,22 +157,16 @@ namespace Project1 {
                 L"Wwwwwwwwwwww [+]",
                     L"Сигмарус", L"57 - 55"
             }, -1, System::Drawing::SystemColors::ScrollBar, System::Drawing::Color::Empty, nullptr));
-            System::Windows::Forms::ColumnHeader^  columnHeader2;
-            System::Windows::Forms::ColumnHeader^  columnHeader3;
             System::Windows::Forms::ListViewItem^  listViewItem4 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
             {
                 L"Tilandra [+]",
                     L"Симела", L"88 - 88"
             }, -1));
-            System::Windows::Forms::ColumnHeader^  columnHeader4;
-            System::Windows::Forms::ColumnHeader^  columnHeader5;
             System::Windows::Forms::ListViewItem^  listViewItem5 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
             {
                 L"Tilandra [+]",
                     L"Симела", L"88 - 88"
             }, -1));
-            System::Windows::Forms::ColumnHeader^  columnHeader6;
-            System::Windows::Forms::ColumnHeader^  columnHeader7;
             System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
             this->LV_TeamList = (gcnew System::Windows::Forms::ListView());
             this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -205,6 +205,36 @@ namespace Project1 {
             columnHeader1->Text = L"Игрок1";
             columnHeader1->Width = 152;
             // 
+            // columnHeader2
+            // 
+            columnHeader2->Text = L"Игрок2";
+            columnHeader2->Width = 152;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3->Text = L"В";
+            columnHeader3->Width = 54;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4->Text = L"Игрок1";
+            columnHeader4->Width = 152;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5->Text = L"Игрок2";
+            columnHeader5->Width = 152;
+            // 
+            // columnHeader6
+            // 
+            columnHeader6->Text = L"Игрок1";
+            columnHeader6->Width = 152;
+            // 
+            // columnHeader7
+            // 
+            columnHeader7->Text = L"Игрок2";
+            columnHeader7->Width = 152;
+            // 
             // LV_TeamList
             // 
             this->LV_TeamList->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(3)
@@ -229,16 +259,6 @@ namespace Project1 {
             this->LV_TeamList->TabIndex = 7;
             this->LV_TeamList->UseCompatibleStateImageBehavior = false;
             this->LV_TeamList->View = System::Windows::Forms::View::Details;
-            // 
-            // columnHeader2
-            // 
-            columnHeader2->Text = L"Игрок2";
-            columnHeader2->Width = 152;
-            // 
-            // columnHeader3
-            // 
-            columnHeader3->Text = L"В";
-            columnHeader3->Width = 54;
             // 
             // groupBox1
             // 
@@ -376,16 +396,6 @@ namespace Project1 {
             this->LV_Team_1->UseCompatibleStateImageBehavior = false;
             this->LV_Team_1->View = System::Windows::Forms::View::Details;
             // 
-            // columnHeader4
-            // 
-            columnHeader4->Text = L"Игрок1";
-            columnHeader4->Width = 152;
-            // 
-            // columnHeader5
-            // 
-            columnHeader5->Text = L"Игрок2";
-            columnHeader5->Width = 152;
-            // 
             // LV_Team_2
             // 
             this->LV_Team_2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::ColumnHeader^  >(2)
@@ -408,16 +418,6 @@ namespace Project1 {
             this->LV_Team_2->TabIndex = 7;
             this->LV_Team_2->UseCompatibleStateImageBehavior = false;
             this->LV_Team_2->View = System::Windows::Forms::View::Details;
-            // 
-            // columnHeader6
-            // 
-            columnHeader6->Text = L"Игрок1";
-            columnHeader6->Width = 152;
-            // 
-            // columnHeader7
-            // 
-            columnHeader7->Text = L"Игрок2";
-            columnHeader7->Width = 152;
             // 
             // label2
             // 
@@ -507,9 +507,9 @@ namespace Project1 {
             this->B_Winner->Font = (gcnew System::Drawing::Font(L"Candara", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                     static_cast<System::Byte>(204)));
             this->B_Winner->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-            this->B_Winner->Location = System::Drawing::Point(323, 83);
+            this->B_Winner->Location = System::Drawing::Point(317, 83);
             this->B_Winner->Name = L"B_Winner";
-            this->B_Winner->Size = System::Drawing::Size(386, 51);
+            this->B_Winner->Size = System::Drawing::Size(392, 51);
             this->B_Winner->TabIndex = 1;
             this->B_Winner->Text = L"Выбрать победителя!";
             this->B_Winner->UseMnemonic = false;
