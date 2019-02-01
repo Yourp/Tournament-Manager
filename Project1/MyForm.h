@@ -103,6 +103,9 @@ namespace Project1 {
         void HandleBegin();
         void SendPlayerNames();
 
+        void SetCurrentArena(bool toEnable);
+        void ClearCurrentArena();
+
 
 	private:
 		/// <summary>
@@ -143,16 +146,6 @@ namespace Project1 {
                 L"Wwwwwwwwwwww [+]",
                     L"Сигмарус", L"57 - 55"
             }, -1, System::Drawing::SystemColors::ScrollBar, System::Drawing::Color::Empty, nullptr));
-            System::Windows::Forms::ListViewItem^  listViewItem4 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(2)
-            {
-                L"Tilandra [+]",
-                    L"Симела"
-            }, -1));
-            System::Windows::Forms::ListViewItem^  listViewItem5 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(2)
-            {
-                L"Tilandra [+]",
-                    L"Симела"
-            }, -1));
             System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
             this->LV_TeamList = (gcnew System::Windows::Forms::ListView());
             this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -365,15 +358,12 @@ namespace Project1 {
             {
                 columnHeader4, columnHeader5
             });
+            this->LV_Team_1->Enabled = false;
             this->LV_Team_1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                      static_cast<System::Byte>(204)));
             this->LV_Team_1->FullRowSelect = true;
             this->LV_Team_1->GridLines = true;
             this->LV_Team_1->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
-            this->LV_Team_1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(1)
-            {
-                listViewItem4
-            });
             this->LV_Team_1->Location = System::Drawing::Point(14, 19);
             this->LV_Team_1->MultiSelect = false;
             this->LV_Team_1->Name = L"LV_Team_1";
@@ -388,15 +378,12 @@ namespace Project1 {
             {
                 columnHeader6, columnHeader7
             });
+            this->LV_Team_2->Enabled = false;
             this->LV_Team_2->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                      static_cast<System::Byte>(204)));
             this->LV_Team_2->FullRowSelect = true;
             this->LV_Team_2->GridLines = true;
             this->LV_Team_2->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
-            this->LV_Team_2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(1)
-            {
-                listViewItem5
-            });
             this->LV_Team_2->Location = System::Drawing::Point(372, 19);
             this->LV_Team_2->MultiSelect = false;
             this->LV_Team_2->Name = L"LV_Team_2";

@@ -163,8 +163,7 @@ void Project1::MyForm::HandleBegin()
 
 void Project1::MyForm::SendPlayerNames()
 {
-    LV_Team_1->Items->Clear();
-    LV_Team_2->Items->Clear();
+    SetCurrentArena(true);
 
     ListViewItem^ team1 = (gcnew ListViewItem(gcnew cli::array< System::String^  >(2)
     {
@@ -181,4 +180,21 @@ void Project1::MyForm::SendPlayerNames()
     }, -1));
 
     LV_Team_2->Items->Add(team2);
+}
+
+void Project1::MyForm::SetCurrentArena(bool toEnable)
+{
+    LV_Team_1->Enabled = toEnable;
+    LV_Team_2->Enabled = toEnable;
+
+    if (!toEnable)
+    {
+        ClearCurrentArena();
+    }
+}
+
+void Project1::MyForm::ClearCurrentArena()
+{
+    LV_Team_1->Items->Clear();
+    LV_Team_2->Items->Clear();
 }
