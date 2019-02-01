@@ -12,6 +12,9 @@ Players::Players()
 
     healersCount = NULL;
     damagersCount = NULL;
+
+    Game[0] = nullptr;
+    Game[1] = nullptr;
 }
 
 Players::~Players()
@@ -63,18 +66,19 @@ void Players::ClearAllTeams()
 
 bool Players::SortTeams()
 {
-    std::vector<std::string> healers;
-    std::vector<std::string> damagers;
+    tList.clear();// temp
+    std::vector<std::string*> healers;
+    std::vector<std::string*> damagers;
 
     for (auto& itr : pList)
     {
         if (itr.second->GetSpecType() == SpecHealer)
         {
-            healers.push_back(itr.first);
+            healers.push_back(itr.second->GetName());
         }
         else
         {
-            damagers.push_back(itr.first);
+            damagers.push_back(itr.second->GetName());
         }
     }
 
@@ -84,10 +88,10 @@ bool Players::SortTeams()
     uint8_t i = 0;
 
     for (; i < healers.size(); i++)
-        tList.insert(new Team(&healers[i], &damagers[i]));
+        tList.insert(new Team(healers[i], damagers[i]));
 
     for (; i < damagers.size(); i++)
-        tList.insert(new Team(&damagers[i++], &damagers[i]));
+        tList.insert(new Team(damagers[i++], damagers[i]));
 
     for (auto itr : tList)
         itr->CreateOponentList(tList, itr);
@@ -115,6 +119,33 @@ void Players::HandleSpecCounts(uint8_t specType, bool remove)
     }
 
     damagersCount = remove ? --damagersCount : ++damagersCount;
+}
+
+void Players::FindGame()
+{
+    uint8_t games = 255;
+
+    for (auto& itr : tList)
+    {
+        if (itr->GetScore() < games)
+        {
+            games = itr->GetScore();
+            Game[0] = itr;
+        }
+    }
+
+    if (Game[0] != nullptr)
+    {
+        Game[1] = Game[0]->FindOponent();
+    }
+}
+
+Team * Players::GetTeam(uint8_t index)
+{
+    if (index < 0 || index > 1)
+        return nullptr;
+
+    return Game[index];
 }
 
 // uint8_t Players::CreatePlayerID()

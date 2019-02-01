@@ -12,6 +12,8 @@ class Player
 public:
     Player(uint8_t specType, std::string name);
 
+    std::string* GetName();
+
     uint8_t GetSpecType();
 private:
 

@@ -7,6 +7,11 @@ Player::Player(uint8_t specType, std::string name) : SpecType(specType), Name(na
 
 }
 
+std::string * Player::GetName()
+{
+    return &Name;
+}
+
 uint8_t Player::GetSpecType()
 {
     return SpecType;

@@ -91,7 +91,10 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
 
 void Project1::MyForm::BeginTournament(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
 {
+    B_Begin->Enabled = false;
     players->SortTeams();
+    players->FindGame();
+    SendPlayerNames();
 }
 
 void MyForm::TextCorrecter(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
@@ -156,4 +159,26 @@ void Project1::MyForm::HandleBegin()
     }
     
     B_Begin->Enabled = false;
+}
+
+void Project1::MyForm::SendPlayerNames()
+{
+    LV_Team_1->Items->Clear();
+    LV_Team_2->Items->Clear();
+
+    ListViewItem^ team1 = (gcnew ListViewItem(gcnew cli::array< System::String^  >(2)
+    {
+        marshal_as<String^>(*players->GetTeam(0)->GetPlayerName(0)),
+        marshal_as<String^>(*players->GetTeam(0)->GetPlayerName(1))
+    }, -1));
+
+    LV_Team_1->Items->Add(team1);
+
+    ListViewItem^ team2 = (gcnew ListViewItem(gcnew cli::array< System::String^  >(2)
+    {
+        marshal_as<String^>(*players->GetTeam(1)->GetPlayerName(0)),
+        marshal_as<String^>(*players->GetTeam(1)->GetPlayerName(1))
+    }, -1));
+
+    LV_Team_2->Items->Add(team2);
 }

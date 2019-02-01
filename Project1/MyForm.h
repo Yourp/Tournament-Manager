@@ -90,22 +90,6 @@ namespace Project1 {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         System::ComponentModel::IContainer^  components;
     public:
     
@@ -117,6 +101,8 @@ namespace Project1 {
         void TextCorrecter(System::Object^  sender, System::EventArgs^  e);
 
         void HandleBegin();
+        void SendPlayerNames();
+
 
 	private:
 		/// <summary>
@@ -157,15 +143,15 @@ namespace Project1 {
                 L"Wwwwwwwwwwww [+]",
                     L"Сигмарус", L"57 - 55"
             }, -1, System::Drawing::SystemColors::ScrollBar, System::Drawing::Color::Empty, nullptr));
-            System::Windows::Forms::ListViewItem^  listViewItem4 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
+            System::Windows::Forms::ListViewItem^  listViewItem4 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(2)
             {
                 L"Tilandra [+]",
-                    L"Симела", L"88 - 88"
+                    L"Симела"
             }, -1));
-            System::Windows::Forms::ListViewItem^  listViewItem5 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
+            System::Windows::Forms::ListViewItem^  listViewItem5 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(2)
             {
                 L"Tilandra [+]",
-                    L"Симела", L"88 - 88"
+                    L"Симела"
             }, -1));
             System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
             this->LV_TeamList = (gcnew System::Windows::Forms::ListView());
@@ -519,7 +505,7 @@ namespace Project1 {
             // 
             this->AcceptButton = this->B_AddPlayer;
             this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
-            this->BackColor = System::Drawing::SystemColors::ControlDarkDark;
+            this->BackColor = System::Drawing::Color::DarkGray;
             this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Zoom;
             this->ClientSize = System::Drawing::Size(722, 638);
             this->Controls->Add(this->B_Winner);
