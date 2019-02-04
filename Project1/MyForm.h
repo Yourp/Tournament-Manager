@@ -87,6 +87,7 @@ namespace Project1 {
 
     private: System::Windows::Forms::GroupBox^  groupBox3;
     private: System::Windows::Forms::Button^  B_Winner;
+    private: System::Windows::Forms::Timer^  timer1;
 
 
 
@@ -97,11 +98,17 @@ namespace Project1 {
         void RemoveAllPlayers(System::Object^  sender, System::EventArgs^  e);
         void AddPlayerInList(System::Object^  sender, System::EventArgs^  e);
         void BeginTournament(System::Object^  sender, System::EventArgs^  e);
+        void SelectWinner1(System::Object^  sender, System::EventArgs^  e);
+        void SelectWinner2(System::Object^  sender, System::EventArgs^  e);
+        void DeselectWinner(System::Object^  sender, System::EventArgs^  e);
+        void HandleWinner(System::Object^  sender, System::EventArgs^  e);
+        void CurrentArenaTick(System::Object^  sender, System::EventArgs^  e);
 
         void TextCorrecter(System::Object^  sender, System::EventArgs^  e);
 
         void HandleBegin();
         void SendPlayerNames();
+        void SendTeamInScoreboard(Team* team, bool removeTm);
 
         void SetCurrentArena(bool toEnable);
         void ClearCurrentArena();
@@ -131,21 +138,6 @@ namespace Project1 {
             System::Windows::Forms::ColumnHeader^  columnHeader5;
             System::Windows::Forms::ColumnHeader^  columnHeader6;
             System::Windows::Forms::ColumnHeader^  columnHeader7;
-            System::Windows::Forms::ListViewItem^  listViewItem1 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
-            {
-                L"Tilandra [+]",
-                    L"Симела", L"88 - 88"
-            }, -1));
-            System::Windows::Forms::ListViewItem^  listViewItem2 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
-            {
-                L"Vnepolovaya [+]",
-                    L"Кл", L"99 - 77"
-            }, -1));
-            System::Windows::Forms::ListViewItem^  listViewItem3 = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
-            {
-                L"Wwwwwwwwwwww [+]",
-                    L"Сигмарус", L"57 - 55"
-            }, -1, System::Drawing::SystemColors::ScrollBar, System::Drawing::Color::Empty, nullptr));
             System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
             this->LV_TeamList = (gcnew System::Windows::Forms::ListView());
             this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -166,6 +158,7 @@ namespace Project1 {
             this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
             this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
             this->B_Winner = (gcnew System::Windows::Forms::Button());
+            this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
             columnHeader1 = (gcnew System::Windows::Forms::ColumnHeader());
             columnHeader2 = (gcnew System::Windows::Forms::ColumnHeader());
             columnHeader3 = (gcnew System::Windows::Forms::ColumnHeader());
@@ -226,11 +219,6 @@ namespace Project1 {
             this->LV_TeamList->FullRowSelect = true;
             this->LV_TeamList->GridLines = true;
             this->LV_TeamList->HeaderStyle = System::Windows::Forms::ColumnHeaderStyle::None;
-            this->LV_TeamList->Items->AddRange(gcnew cli::array< System::Windows::Forms::ListViewItem^  >(3)
-            {
-                listViewItem1, listViewItem2,
-                    listViewItem3
-            });
             this->LV_TeamList->Location = System::Drawing::Point(6, 19);
             this->LV_TeamList->MultiSelect = false;
             this->LV_TeamList->Name = L"LV_TeamList";
@@ -272,10 +260,6 @@ namespace Project1 {
                                          static_cast<System::Byte>(204)));
             this->LB_PlayerList->FormattingEnabled = true;
             this->LB_PlayerList->ItemHeight = 19;
-            this->LB_PlayerList->Items->AddRange(gcnew cli::array< System::Object^  >(3)
-            {
-                L"Vnepolovaya [+]", L"Deadthrow", L"Симела"
-            });
             this->LB_PlayerList->Location = System::Drawing::Point(6, 19);
             this->LB_PlayerList->Name = L"LB_PlayerList";
             this->LB_PlayerList->Size = System::Drawing::Size(150, 517);
@@ -371,6 +355,8 @@ namespace Project1 {
             this->LV_Team_1->TabIndex = 7;
             this->LV_Team_1->UseCompatibleStateImageBehavior = false;
             this->LV_Team_1->View = System::Windows::Forms::View::Details;
+            this->LV_Team_1->Enter += gcnew System::EventHandler(this, &MyForm::SelectWinner1);
+            this->LV_Team_1->Leave += gcnew System::EventHandler(this, &MyForm::DeselectWinner);
             // 
             // LV_Team_2
             // 
@@ -391,6 +377,8 @@ namespace Project1 {
             this->LV_Team_2->TabIndex = 7;
             this->LV_Team_2->UseCompatibleStateImageBehavior = false;
             this->LV_Team_2->View = System::Windows::Forms::View::Details;
+            this->LV_Team_2->Enter += gcnew System::EventHandler(this, &MyForm::SelectWinner2);
+            this->LV_Team_2->Leave += gcnew System::EventHandler(this, &MyForm::DeselectWinner);
             // 
             // label2
             // 
@@ -487,6 +475,12 @@ namespace Project1 {
             this->B_Winner->Text = L"Выбрать победителя!";
             this->B_Winner->UseMnemonic = false;
             this->B_Winner->UseVisualStyleBackColor = true;
+            this->B_Winner->Click += gcnew System::EventHandler(this, &MyForm::HandleWinner);
+            // 
+            // timer1
+            // 
+            this->timer1->Interval = 200;
+            this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::CurrentArenaTick);
             // 
             // MyForm
             // 
@@ -519,5 +513,6 @@ namespace Project1 {
 
         }
 #pragma endregion
+
     };
 }

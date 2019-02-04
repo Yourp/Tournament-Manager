@@ -13,6 +13,8 @@ Players::Players()
     healersCount = NULL;
     damagersCount = NULL;
 
+    SelectedWinner = 0;
+
     Game[0] = nullptr;
     Game[1] = nullptr;
 }
@@ -52,6 +54,8 @@ void Players::ClearAllPlayers()
 
     pList.clear();
 
+    ClearAllTeams();
+
     healersCount = NULL;
     damagersCount = NULL;
 }
@@ -64,9 +68,17 @@ void Players::ClearAllTeams()
     tList.clear();
 }
 
+void Players::RemoveTeam(Team * team)
+{
+    for (auto itr : tList)
+        itr->RemoveTeamInOponentList(team);
+
+    tList.erase(team);
+    delete team;
+}
+
 bool Players::SortTeams()
 {
-    tList.clear();// temp
     std::vector<std::string*> healers;
     std::vector<std::string*> damagers;
 
@@ -94,7 +106,7 @@ bool Players::SortTeams()
         tList.insert(new Team(damagers[i++], damagers[i]));
 
     for (auto itr : tList)
-        itr->CreateOponentList(tList, itr);
+        itr->CreateOponentList(tList);
 
     return false;
 }
@@ -136,8 +148,24 @@ void Players::FindGame()
 
     if (Game[0] != nullptr)
     {
+        if (!Game[0]->HasOponents())
+            Game[0]->CreateOponentList(tList);
+
         Game[1] = Game[0]->FindOponent();
+
+        Game[0]->RemoveTeamInOponentList(Game[1]);
+        Game[1]->RemoveTeamInOponentList(Game[0]);
     }
+}
+
+void Players::SetSelectedWinner(uint8_t index)
+{
+    SelectedWinner = index;
+}
+
+uint8_t Players::GetSelectedWinner() const
+{
+    return SelectedWinner;
 }
 
 Team * Players::GetTeam(uint8_t index)

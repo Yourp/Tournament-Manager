@@ -36,30 +36,17 @@ void MyForm::RemoveAllPlayers(System::Object ^ /*sender*/, System::EventArgs ^ /
     {
         LB_PlayerList->Items->Clear();
         players->ClearAllPlayers();
+        LV_TeamList->Items->Clear();
+        SetCurrentArena(false);
         HandleBegin();
     }
 }
 
 void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* e*/)
 {
-    System::Windows::Forms::ListViewItem^  listff = (gcnew System::Windows::Forms::ListViewItem(gcnew cli::array< System::String^  >(3)
-    {
-        L"Vnep [+]",
-            L"Êëjkj", L"99 - 77"
-    }, -1));
-
-    uint32_t win = 6;
-    uint32_t lose = 45;
-
-    listff->SubItems[2]->Text = Convert::ToString(win);
-    listff->SubItems[2]->Text += " - ";
-    listff->SubItems[2]->Text += Convert::ToString(lose);
-
-    //System::Windows::Forms::ListViewItem^ tt = listView1->FindItemWithText("Vnep [+]");
-
     if (TB_AddPlayerTextBox->Text->Length)
     {
-        for (int i = 0; i < LB_PlayerList->Items->Count; i++)
+        for (int32_t i = 0; i < LB_PlayerList->Items->Count; i++)
         {
             if (LB_PlayerList->Items[i]->ToString() == (HealerCheck->Checked ? (TB_AddPlayerTextBox->Text + HealMarker) : TB_AddPlayerTextBox->Text))
             {
@@ -95,6 +82,59 @@ void Project1::MyForm::BeginTournament(System::Object ^ /*sender*/, System::Even
     players->SortTeams();
     players->FindGame();
     SendPlayerNames();
+}
+
+void Project1::MyForm::SelectWinner1(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+{
+    players->SetSelectedWinner(0);
+    timer1->Enabled = false;
+    B_Winner->Enabled = true;
+}
+
+void Project1::MyForm::SelectWinner2(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+{
+    players->SetSelectedWinner(1);
+    timer1->Enabled = false;
+    B_Winner->Enabled = true;
+}
+
+void Project1::MyForm::DeselectWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+{
+    timer1->Enabled = true;
+}
+
+void Project1::MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+{
+    B_Winner->Enabled = false;
+
+    uint8_t winnerIndex = players->GetSelectedWinner();
+
+    if (Team* winner = players->GetTeam(winnerIndex))
+    {
+        winner->SetWin();
+        SendTeamInScoreboard(winner, false);
+
+        if (Team* losser = players->GetTeam(winnerIndex ? 0 : 1))
+        {
+            losser->SetLose();
+            bool removeTeam = losser->GetLoses() >= MaxLoses;
+
+            SendTeamInScoreboard(losser, removeTeam);
+
+            if (removeTeam)
+                players->RemoveTeam(losser);
+        }
+    }
+
+    ClearCurrentArena();
+    players->FindGame();
+    SendPlayerNames();
+}
+
+void Project1::MyForm::CurrentArenaTick(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+{
+    B_Winner->Enabled = false;
+    timer1->Enabled = false;
 }
 
 void MyForm::TextCorrecter(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
@@ -180,6 +220,40 @@ void Project1::MyForm::SendPlayerNames()
     }, -1));
 
     LV_Team_2->Items->Add(team2);
+}
+
+void Project1::MyForm::SendTeamInScoreboard(Team * team, bool removeTm)
+{
+    String^ leaderName = marshal_as<String^>(*team->GetPlayerName(0));
+    ListViewItem^ LVItem = nullptr;
+    
+    for (int32_t i = 0; i < LV_TeamList->Items->Count; i++)
+    {
+        if (LV_TeamList->Items[i]->Text == leaderName)
+        {
+            LVItem = LV_TeamList->Items[i];
+            break;
+        }
+    }
+
+    if (LVItem == nullptr)
+    {
+        LVItem = (gcnew ListViewItem(gcnew cli::array< System::String^  >(3)
+        {
+            marshal_as<String^>(*team->GetPlayerName(0)),
+            marshal_as<String^>(*team->GetPlayerName(1)),
+                L""
+        }, -1));
+
+        LV_TeamList->Items->Add(LVItem);
+    }
+
+    LVItem->SubItems[2]->Text = Convert::ToString(team->GetWins());
+    LVItem->SubItems[2]->Text += " - ";
+    LVItem->SubItems[2]->Text += Convert::ToString(team->GetLoses());
+
+    if (removeTm)
+        LVItem->ForeColor = Drawing::SystemColors::ScrollBar;
 }
 
 void Project1::MyForm::SetCurrentArena(bool toEnable)

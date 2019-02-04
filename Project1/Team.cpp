@@ -14,10 +14,10 @@ Team::~Team()
 
 }
 
-void Team::CreateOponentList(std::set<Team*>& opList, Team* exTeam)
+void Team::CreateOponentList(std::set<Team*>& opList)
 {
     oponentList = opList;
-    RemoveTeamInOponentList(exTeam);
+    RemoveTeamInOponentList(this);
 }
 
 void Team::RemoveTeamInOponentList(Team * team)
@@ -47,9 +47,26 @@ Team * Team::FindOponent()
     return op;
 }
 
+bool Team::HasOponents() const
+{
+    return !oponentList.empty();
+}
+
 std::string * Team::GetPlayerName(uint8_t index)
 {
     return index ? player_2 : player_1;
+}
+
+void Team::SetWin()
+{
+    Wins++;
+    Score += 2;
+}
+
+void Team::SetLose()
+{
+    Loses++;
+    Score++;
 }
 
 uint8_t Team::GetLoses() const
