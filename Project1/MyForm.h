@@ -7,12 +7,14 @@
 #define BEGIN_ERROR_NONE "Можно начинать!"
 #define BEGIN_ERROR_PLAYERS_COUNT "Не парное количество игроков!"
 #define BEGIN_ERROR_HEALERS_COUNT "Хилов больше чем дамагеров!"
+#define BEGIN_ERROR_TEAMS_COUNT "Не достаточно команд!"
 
 enum BeginErrors
 {
     BE_None,
     BE_PlayersCount,
-    BE_HealersCount
+    BE_HealersCount,
+    BE_TeamsCount
 };
 
 namespace Project1 {
@@ -88,6 +90,7 @@ namespace Project1 {
     private: System::Windows::Forms::GroupBox^  groupBox3;
     private: System::Windows::Forms::Button^  B_Winner;
     private: System::Windows::Forms::Timer^  timer1;
+    private: System::Windows::Forms::Button^  B_ReplacePlayer;
 
 
 
@@ -107,6 +110,7 @@ namespace Project1 {
         void TextCorrecter(System::Object^  sender, System::EventArgs^  e);
 
         void HandleBegin();
+        void AddPlayerLocker(bool toEnable);
         void SendPlayerNames();
         void SendTeamInScoreboard(Team* team, bool removeTm);
 
@@ -147,6 +151,7 @@ namespace Project1 {
             this->TB_AddPlayerTextBox = (gcnew System::Windows::Forms::TextBox());
             this->B_RemoveAll = (gcnew System::Windows::Forms::Button());
             this->B_Remove = (gcnew System::Windows::Forms::Button());
+            this->B_ReplacePlayer = (gcnew System::Windows::Forms::Button());
             this->B_AddPlayer = (gcnew System::Windows::Forms::Button());
             this->toolTip1 = (gcnew System::Windows::Forms::ToolTip(this->components));
             this->LV_Team_1 = (gcnew System::Windows::Forms::ListView());
@@ -235,6 +240,7 @@ namespace Project1 {
             this->groupBox1->Controls->Add(this->TB_AddPlayerTextBox);
             this->groupBox1->Controls->Add(this->B_RemoveAll);
             this->groupBox1->Controls->Add(this->B_Remove);
+            this->groupBox1->Controls->Add(this->B_ReplacePlayer);
             this->groupBox1->Controls->Add(this->B_AddPlayer);
             this->groupBox1->Font = (gcnew System::Drawing::Font(L"Candara", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                      static_cast<System::Byte>(204)));
@@ -268,6 +274,7 @@ namespace Project1 {
             // HealerCheck
             // 
             this->HealerCheck->AutoSize = true;
+            this->HealerCheck->Enabled = false;
             this->HealerCheck->Font = (gcnew System::Drawing::Font(L"Candara", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                        static_cast<System::Byte>(204)));
             this->HealerCheck->Location = System::Drawing::Point(162, 63);
@@ -315,9 +322,24 @@ namespace Project1 {
             this->B_Remove->UseVisualStyleBackColor = true;
             this->B_Remove->Click += gcnew System::EventHandler(this, &MyForm::RemovePlayer);
             // 
+            // B_ReplacePlayer
+            // 
+            this->B_ReplacePlayer->Cursor = System::Windows::Forms::Cursors::Hand;
+            this->B_ReplacePlayer->Enabled = false;
+            this->B_ReplacePlayer->FlatStyle = System::Windows::Forms::FlatStyle::System;
+            this->B_ReplacePlayer->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+                                           static_cast<System::Byte>(204)));
+            this->B_ReplacePlayer->Location = System::Drawing::Point(162, 146);
+            this->B_ReplacePlayer->Name = L"B_ReplacePlayer";
+            this->B_ReplacePlayer->Size = System::Drawing::Size(131, 52);
+            this->B_ReplacePlayer->TabIndex = 1;
+            this->B_ReplacePlayer->Text = L"Заменить игрока";
+            this->B_ReplacePlayer->UseVisualStyleBackColor = true;
+            // 
             // B_AddPlayer
             // 
             this->B_AddPlayer->Cursor = System::Windows::Forms::Cursors::Hand;
+            this->B_AddPlayer->Enabled = false;
             this->B_AddPlayer->FlatStyle = System::Windows::Forms::FlatStyle::System;
             this->B_AddPlayer->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                        static_cast<System::Byte>(204)));

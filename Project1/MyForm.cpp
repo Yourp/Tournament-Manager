@@ -76,7 +76,7 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
     }
 }
 
-void Project1::MyForm::BeginTournament(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::BeginTournament(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
 {
     B_Begin->Enabled = false;
     players->SortTeams();
@@ -84,26 +84,26 @@ void Project1::MyForm::BeginTournament(System::Object ^ /*sender*/, System::Even
     SendPlayerNames();
 }
 
-void Project1::MyForm::SelectWinner1(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::SelectWinner1(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
 {
     players->SetSelectedWinner(0);
     timer1->Enabled = false;
     B_Winner->Enabled = true;
 }
 
-void Project1::MyForm::SelectWinner2(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::SelectWinner2(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
 {
     players->SetSelectedWinner(1);
     timer1->Enabled = false;
     B_Winner->Enabled = true;
 }
 
-void Project1::MyForm::DeselectWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::DeselectWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
 {
     timer1->Enabled = true;
 }
 
-void Project1::MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
 {
     B_Winner->Enabled = false;
 
@@ -135,6 +135,9 @@ void Project1::MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventAr
             MessageBox::Show(msg, "Турнир завершен!", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
             SetCurrentArena(false);
+            LV_TeamList->Items->Clear();
+            players->ClearAllTeams();
+            HandleBegin();
             return;
         }
     }
@@ -144,7 +147,7 @@ void Project1::MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventAr
     SendPlayerNames();
 }
 
-void Project1::MyForm::CurrentArenaTick(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::CurrentArenaTick(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
 {
     B_Winner->Enabled = false;
     timer1->Enabled = false;
@@ -184,12 +187,13 @@ void MyForm::TextCorrecter(System::Object ^ /*sender*/, System::EventArgs ^ /*e*
         }
 
         TB_AddPlayerTextBox->Text = curString;
+        AddPlayerLocker(TB_AddPlayerTextBox->Text == "");
         TB_AddPlayerTextBox->SelectionStart = Section;
         bCanCheckTextInTextBox = true;
     }
 }
 
-void Project1::MyForm::HandleBegin()
+void MyForm::HandleBegin()
 {
     switch (players->CanBegin())
     {
@@ -203,6 +207,11 @@ void Project1::MyForm::HandleBegin()
             L_BeginErrors->Text = BEGIN_ERROR_HEALERS_COUNT;
             break;
         }
+        case BE_TeamsCount:
+        {
+            L_BeginErrors->Text = BEGIN_ERROR_TEAMS_COUNT;
+            break;
+        }
         default:
         {
             B_Begin->Enabled = true;
@@ -214,7 +223,23 @@ void Project1::MyForm::HandleBegin()
     B_Begin->Enabled = false;
 }
 
-void Project1::MyForm::SendPlayerNames()
+void MyForm::AddPlayerLocker(bool toEnable)
+{
+    if (players->GetTeamsCount() > 0)
+    {
+        B_AddPlayer->Enabled = false;
+
+        if (LB_PlayerList->SelectedIndex >= 0 || toEnable)
+            B_ReplacePlayer->Enabled = !toEnable;
+    }
+    else
+    {
+        B_AddPlayer->Enabled = !toEnable;
+        B_ReplacePlayer->Enabled = false;
+    }
+}
+
+void MyForm::SendPlayerNames()
 {
     SetCurrentArena(true);
 
@@ -235,7 +260,7 @@ void Project1::MyForm::SendPlayerNames()
     LV_Team_2->Items->Add(team2);
 }
 
-void Project1::MyForm::SendTeamInScoreboard(Team * team, bool removeTm)
+void MyForm::SendTeamInScoreboard(Team * team, bool removeTm)
 {
     String^ leaderName = marshal_as<String^>(*team->GetPlayerName(0));
     ListViewItem^ LVItem = nullptr;
@@ -269,7 +294,7 @@ void Project1::MyForm::SendTeamInScoreboard(Team * team, bool removeTm)
         LVItem->ForeColor = Drawing::SystemColors::ScrollBar;
 }
 
-void Project1::MyForm::SetCurrentArena(bool toEnable)
+void MyForm::SetCurrentArena(bool toEnable)
 {
     LV_Team_1->Enabled = toEnable;
     LV_Team_2->Enabled = toEnable;
@@ -280,7 +305,7 @@ void Project1::MyForm::SetCurrentArena(bool toEnable)
     }
 }
 
-void Project1::MyForm::ClearCurrentArena()
+void MyForm::ClearCurrentArena()
 {
     LV_Team_1->Items->Clear();
     LV_Team_2->Items->Clear();

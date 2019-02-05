@@ -40,7 +40,6 @@ void Players::DeletePlayer(std::string name)
         if (Player* player = itr->second)
         {
             HandleSpecCounts(player->GetSpecType(), true);
-            //FreeIDs.insert(player->GetID());
             pList.erase(itr);
             delete player;
         }
@@ -113,7 +112,12 @@ bool Players::SortTeams()
 
 uint8_t Players::CanBegin() const
 {
-    if (pList.empty() || pList.size() % 2 != 0)
+    size_t playerListSize = pList.size();
+
+    if (playerListSize < MinPlayers)
+        return BE_TeamsCount;
+
+    if (!playerListSize || playerListSize % 2 != 0)
         return BE_PlayersCount;
 
     if (healersCount > damagersCount)
@@ -176,19 +180,7 @@ Team * Players::GetTeam(uint8_t index)
     return Game[index];
 }
 
-uint8_t Players::GetTeamsCount() const
+size_t Players::GetTeamsCount() const
 {
     return tList.size();
 }
-
-// uint8_t Players::CreatePlayerID()
-// {
-//     if (!FreeIDs.empty())
-//     {
-//         uint8_t id = *FreeIDs.begin();
-//         FreeIDs.erase(id);
-//         return id;
-//     }
-// 
-//     return uint8_t(pList.size() + 1);
-// }

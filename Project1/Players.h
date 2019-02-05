@@ -10,6 +10,11 @@ typedef std::map<std::string, Player*> PlayerList;
 typedef std::set<Team*> TeamList;
 //typedef std::set<uint8_t> FreeIDList;
 
+enum PlayerParam
+{
+    MinPlayers = 6
+};
+
 
 class Players
 {
@@ -30,10 +35,8 @@ public:
     void SetSelectedWinner(uint8_t index);
     uint8_t GetSelectedWinner() const;
     Team* GetTeam(uint8_t index);
-    uint8_t GetTeamsCount() const;
+    size_t GetTeamsCount() const;
 
-
-    //uint8_t CreatePlayerID();
     
 
 private:
@@ -45,6 +48,5 @@ private:
     uint8_t SelectedWinner;
 
     Team* Game[2];
-    //FreeIDList FreeIDs;
 };
 
