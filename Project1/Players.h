@@ -30,6 +30,7 @@ public:
     void SetSelectedWinner(uint8_t index);
     uint8_t GetSelectedWinner() const;
     Team* GetTeam(uint8_t index);
+    uint8_t GetTeamsCount() const;
 
 
     //uint8_t CreatePlayerID();

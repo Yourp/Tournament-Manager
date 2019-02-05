@@ -124,6 +124,19 @@ void Project1::MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventAr
             if (removeTeam)
                 players->RemoveTeam(losser);
         }
+
+        if (players->GetTeamsCount() == 1)
+        {
+            String^ msg = "Победители: ";
+            msg += marshal_as<String^>(*winner->GetPlayerName(0));
+            msg += " и ";
+            msg += marshal_as<String^>(*winner->GetPlayerName(1));
+
+            MessageBox::Show(msg, "Турнир завершен!", MessageBoxButtons::OK, MessageBoxIcon::Information);
+
+            SetCurrentArena(false);
+            return;
+        }
     }
 
     ClearCurrentArena();

@@ -176,6 +176,11 @@ Team * Players::GetTeam(uint8_t index)
     return Game[index];
 }
 
+uint8_t Players::GetTeamsCount() const
+{
+    return tList.size();
+}
+
 // uint8_t Players::CreatePlayerID()
 // {
 //     if (!FreeIDs.empty())
