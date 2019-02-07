@@ -4,7 +4,7 @@
 
 enum TeamParam
 {
-    MaxLoses = 2
+    MaxLoses = 2,
 };
 
 class Team

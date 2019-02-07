@@ -12,6 +12,11 @@ std::string * Player::GetName()
     return &Name;
 }
 
+void Player::SetNewName(std::string newName)
+{
+    Name = newName;
+}
+
 uint8_t Player::GetSpecType()
 {
     return SpecType;

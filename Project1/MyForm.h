@@ -97,20 +97,25 @@ namespace Project1 {
         System::ComponentModel::IContainer^  components;
     public:
     
-        void RemovePlayer(System::Object^  sender, System::EventArgs^  e);
-        void RemoveAllPlayers(System::Object^  sender, System::EventArgs^  e);
-        void AddPlayerInList(System::Object^  sender, System::EventArgs^  e);
-        void BeginTournament(System::Object^  sender, System::EventArgs^  e);
-        void SelectWinner1(System::Object^  sender, System::EventArgs^  e);
-        void SelectWinner2(System::Object^  sender, System::EventArgs^  e);
-        void DeselectWinner(System::Object^  sender, System::EventArgs^  e);
-        void HandleWinner(System::Object^  sender, System::EventArgs^  e);
-        void CurrentArenaTick(System::Object^  sender, System::EventArgs^  e);
+        void RemovePlayer(System::Object^, System::EventArgs^);
+        void RemoveAllPlayers(System::Object^, System::EventArgs^);
+        void AddPlayerInList(System::Object^, System::EventArgs^);
+        void BeginTournament(System::Object^, System::EventArgs^);
+        void SelectWinner1(System::Object^, System::EventArgs^);
+        void SelectWinner2(System::Object^, System::EventArgs^);
+        void DeselectWinner(System::Object^, System::EventArgs^);
+        void HandleWinner(System::Object^, System::EventArgs^);
+        void CurrentArenaTick(System::Object^, System::EventArgs^);
 
-        void TextCorrecter(System::Object^  sender, System::EventArgs^  e);
+        void TextCorrecter(System::Object^, System::EventArgs^);
+
+        void ReplacePlayer(System::Object ^, System::EventArgs ^);
+        void SelectedIndexInListBox(System::Object ^, System::EventArgs ^);
+
 
         void HandleBegin();
-        void AddPlayerLocker(bool toEnable);
+        void CheckAPLocker();
+        bool CheckPlayerInList();
         void SendPlayerNames();
         void SendTeamInScoreboard(Team* team, bool removeTm);
 
@@ -270,11 +275,11 @@ namespace Project1 {
             this->LB_PlayerList->Name = L"LB_PlayerList";
             this->LB_PlayerList->Size = System::Drawing::Size(150, 517);
             this->LB_PlayerList->TabIndex = 2;
+            this->LB_PlayerList->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::SelectedIndexInListBox);
             // 
             // HealerCheck
             // 
             this->HealerCheck->AutoSize = true;
-            this->HealerCheck->Enabled = false;
             this->HealerCheck->Font = (gcnew System::Drawing::Font(L"Candara", 9.75F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                        static_cast<System::Byte>(204)));
             this->HealerCheck->Location = System::Drawing::Point(162, 63);
@@ -311,6 +316,7 @@ namespace Project1 {
             // B_Remove
             // 
             this->B_Remove->Cursor = System::Windows::Forms::Cursors::Hand;
+            this->B_Remove->Enabled = false;
             this->B_Remove->FlatStyle = System::Windows::Forms::FlatStyle::System;
             this->B_Remove->Font = (gcnew System::Drawing::Font(L"Candara", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
                                     static_cast<System::Byte>(204)));
@@ -335,6 +341,7 @@ namespace Project1 {
             this->B_ReplacePlayer->TabIndex = 1;
             this->B_ReplacePlayer->Text = L"Заменить игрока";
             this->B_ReplacePlayer->UseVisualStyleBackColor = true;
+            this->B_ReplacePlayer->Click += gcnew System::EventHandler(this, &MyForm::ReplacePlayer);
             // 
             // B_AddPlayer
             // 
@@ -535,6 +542,5 @@ namespace Project1 {
 
         }
 #pragma endregion
-
     };
 }

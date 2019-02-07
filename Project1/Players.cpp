@@ -184,3 +184,18 @@ size_t Players::GetTeamsCount() const
 {
     return tList.size();
 }
+
+void Players::ReplacePlayer(std::string* oldName, std::string* newName)
+{
+    auto itr = pList.find(*oldName);
+
+    if (itr != pList.end())
+    {
+        if (Player* player = itr->second)
+        {
+            player->SetNewName(*newName);
+            pList[*newName] = player;
+            pList.erase(itr);
+        }
+    }
+}

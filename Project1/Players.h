@@ -8,11 +8,11 @@ class Team;
 
 typedef std::map<std::string, Player*> PlayerList;
 typedef std::set<Team*> TeamList;
-//typedef std::set<uint8_t> FreeIDList;
 
 enum PlayerParam
 {
-    MinPlayers = 6
+    MinPlayers = 6,
+    MaxTeamInArena = 2
 };
 
 
@@ -36,7 +36,7 @@ public:
     uint8_t GetSelectedWinner() const;
     Team* GetTeam(uint8_t index);
     size_t GetTeamsCount() const;
-
+    void ReplacePlayer(std::string* oldName, std::string* newName);
     
 
 private:

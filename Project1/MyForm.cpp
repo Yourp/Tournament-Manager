@@ -10,7 +10,7 @@ using namespace Windows::Forms;
 using namespace Project1;
 using namespace msclr::interop;
 
-int main(array<String^>^ /*args*/)
+int main(array<String^>^)
 {
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
@@ -20,7 +20,7 @@ int main(array<String^>^ /*args*/)
     return 0;
 }
 
-void MyForm::RemovePlayer(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::RemovePlayer(System::Object ^, System::EventArgs ^)
 {
     if (LB_PlayerList->SelectedIndex >= 0)
     {
@@ -30,7 +30,7 @@ void MyForm::RemovePlayer(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/
     }
 }
 
-void MyForm::RemoveAllPlayers(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::RemoveAllPlayers(System::Object ^, System::EventArgs ^)
 {
     if (MessageBox::Show("Удалить всех игроков из списка?", "Очистка списка", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == Windows::Forms::DialogResult::Yes)
     {
@@ -38,22 +38,17 @@ void MyForm::RemoveAllPlayers(System::Object ^ /*sender*/, System::EventArgs ^ /
         players->ClearAllPlayers();
         LV_TeamList->Items->Clear();
         SetCurrentArena(false);
+        CheckAPLocker();
         HandleBegin();
     }
 }
 
-void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* e*/)
+void MyForm::AddPlayerInList(System::Object ^, System::EventArgs ^)
 {
     if (TB_AddPlayerTextBox->Text->Length)
     {
-        for (int32_t i = 0; i < LB_PlayerList->Items->Count; i++)
-        {
-            if (LB_PlayerList->Items[i]->ToString() == (HealerCheck->Checked ? (TB_AddPlayerTextBox->Text + HealMarker) : TB_AddPlayerTextBox->Text))
-            {
-                MessageBox::Show("Этот игрок уже есть в списке!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Information);
-                return;
-            }
-        }
+        if (!CheckPlayerInList())
+            return;
 
         if (HealerCheck->Checked)
         {
@@ -76,34 +71,36 @@ void MyForm::AddPlayerInList(System::Object ^ /*sender*/, System::EventArgs ^/* 
     }
 }
 
-void MyForm::BeginTournament(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::BeginTournament(System::Object ^, System::EventArgs ^)
 {
     B_Begin->Enabled = false;
+    B_Remove->Enabled = false;
+    TB_AddPlayerTextBox->Text = nullptr;
     players->SortTeams();
     players->FindGame();
     SendPlayerNames();
 }
 
-void MyForm::SelectWinner1(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::SelectWinner1(System::Object ^, System::EventArgs ^)
 {
     players->SetSelectedWinner(0);
     timer1->Enabled = false;
     B_Winner->Enabled = true;
 }
 
-void MyForm::SelectWinner2(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::SelectWinner2(System::Object ^, System::EventArgs ^)
 {
     players->SetSelectedWinner(1);
     timer1->Enabled = false;
     B_Winner->Enabled = true;
 }
 
-void MyForm::DeselectWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::DeselectWinner(System::Object ^, System::EventArgs ^)
 {
     timer1->Enabled = true;
 }
 
-void MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::HandleWinner(System::Object ^, System::EventArgs ^)
 {
     B_Winner->Enabled = false;
 
@@ -136,6 +133,7 @@ void MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/
 
             SetCurrentArena(false);
             LV_TeamList->Items->Clear();
+            TB_AddPlayerTextBox->Text = nullptr;
             players->ClearAllTeams();
             HandleBegin();
             return;
@@ -147,13 +145,13 @@ void MyForm::HandleWinner(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/
     SendPlayerNames();
 }
 
-void MyForm::CurrentArenaTick(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::CurrentArenaTick(System::Object ^, System::EventArgs ^)
 {
     B_Winner->Enabled = false;
     timer1->Enabled = false;
 }
 
-void MyForm::TextCorrecter(System::Object ^ /*sender*/, System::EventArgs ^ /*e*/)
+void MyForm::TextCorrecter(System::Object ^, System::EventArgs ^)
 {
     if (bCanCheckTextInTextBox)
     {
@@ -187,10 +185,64 @@ void MyForm::TextCorrecter(System::Object ^ /*sender*/, System::EventArgs ^ /*e*
         }
 
         TB_AddPlayerTextBox->Text = curString;
-        AddPlayerLocker(TB_AddPlayerTextBox->Text == "");
+        CheckAPLocker();
         TB_AddPlayerTextBox->SelectionStart = Section;
         bCanCheckTextInTextBox = true;
     }
+}
+
+void MyForm::ReplacePlayer(System::Object ^, System::EventArgs ^)
+{
+    if (LB_PlayerList->SelectedIndex >= 0 && TB_AddPlayerTextBox->Text->Length)
+    {
+        if (!CheckPlayerInList())
+            return;
+
+        String^ oldName = LB_PlayerList->Items[LB_PlayerList->SelectedIndex]->ToString();
+        std::string ConvertedOldName = marshal_as<std::string>(oldName);
+        players->ReplacePlayer(&ConvertedOldName, &marshal_as<std::string>(TB_AddPlayerTextBox->Text));
+
+        LB_PlayerList->Items[LB_PlayerList->SelectedIndex] = TB_AddPlayerTextBox->Text;
+
+        if (LV_Team_1->Items[0]->Text == oldName)
+        {
+            LV_Team_1->Items[0]->Text = TB_AddPlayerTextBox->Text;
+        }
+        else if (LV_Team_1->Items[0]->SubItems[1]->Text == oldName)
+        {
+            LV_Team_1->Items[0]->SubItems[1]->Text = TB_AddPlayerTextBox->Text;
+        }
+        else if (LV_Team_2->Items[0]->Text == oldName)
+        {
+            LV_Team_2->Items[0]->Text = TB_AddPlayerTextBox->Text;
+        }
+        else if (LV_Team_2->Items[0]->SubItems[1]->Text == oldName)
+        {
+            LV_Team_2->Items[0]->SubItems[1]->Text = TB_AddPlayerTextBox->Text;
+        }
+
+        for (int32_t i = 0; i < LV_TeamList->Items->Count; i++)
+        {
+            if (LV_TeamList->Items[i]->Text == oldName)
+            {
+                LV_TeamList->Items[i]->Text = TB_AddPlayerTextBox->Text;
+                break;
+            }
+            else if (LV_TeamList->Items[i]->SubItems[1]->Text == oldName)
+            {
+                LV_TeamList->Items[i]->SubItems[1]->Text = TB_AddPlayerTextBox->Text;
+                break;
+            }
+        }
+
+        TB_AddPlayerTextBox->Text = nullptr;
+    }
+}
+
+void MyForm::SelectedIndexInListBox(System::Object ^, System::EventArgs ^)
+{
+    CheckAPLocker();
+    B_Remove->Enabled = (LB_PlayerList->SelectedIndex >= 0 && players->GetTeamsCount() == 0);
 }
 
 void MyForm::HandleBegin()
@@ -223,41 +275,50 @@ void MyForm::HandleBegin()
     B_Begin->Enabled = false;
 }
 
-void MyForm::AddPlayerLocker(bool toEnable)
+void MyForm::CheckAPLocker()
 {
+    bool lockButtons = TB_AddPlayerTextBox->Text == "";
+
     if (players->GetTeamsCount() > 0)
     {
         B_AddPlayer->Enabled = false;
-
-        if (LB_PlayerList->SelectedIndex >= 0 || toEnable)
-            B_ReplacePlayer->Enabled = !toEnable;
+        B_ReplacePlayer->Enabled = (LB_PlayerList->SelectedIndex >= 0 && !lockButtons);
     }
     else
     {
-        B_AddPlayer->Enabled = !toEnable;
+        B_AddPlayer->Enabled = !lockButtons;
         B_ReplacePlayer->Enabled = false;
     }
+}
+
+bool Project1::MyForm::CheckPlayerInList()
+{
+    for (int32_t i = 0; i < LB_PlayerList->Items->Count; i++)
+    {
+        if (LB_PlayerList->Items[i]->ToString() == (HealerCheck->Checked ? (TB_AddPlayerTextBox->Text + HealMarker) : TB_AddPlayerTextBox->Text))
+        {
+            MessageBox::Show("Этот игрок уже есть в списке!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            return false;
+        }
+    }
+
+    return true;
 }
 
 void MyForm::SendPlayerNames()
 {
     SetCurrentArena(true);
 
-    ListViewItem^ team1 = (gcnew ListViewItem(gcnew cli::array< System::String^  >(2)
+    for (uint8_t i = 0; i < MaxTeamInArena; i++)
     {
-        marshal_as<String^>(*players->GetTeam(0)->GetPlayerName(0)),
-        marshal_as<String^>(*players->GetTeam(0)->GetPlayerName(1))
-    }, -1));
+        ListViewItem^ team = (gcnew ListViewItem(gcnew cli::array< System::String^  >(2)
+        {
+            marshal_as<String^>(*players->GetTeam(i)->GetPlayerName(0)),
+            marshal_as<String^>(*players->GetTeam(i)->GetPlayerName(1))
+        }, -1));
 
-    LV_Team_1->Items->Add(team1);
-
-    ListViewItem^ team2 = (gcnew ListViewItem(gcnew cli::array< System::String^  >(2)
-    {
-        marshal_as<String^>(*players->GetTeam(1)->GetPlayerName(0)),
-        marshal_as<String^>(*players->GetTeam(1)->GetPlayerName(1))
-    }, -1));
-
-    LV_Team_2->Items->Add(team2);
+        !i ? LV_Team_1->Items->Add(team) : LV_Team_2->Items->Add(team);
+    }
 }
 
 void MyForm::SendTeamInScoreboard(Team * team, bool removeTm)

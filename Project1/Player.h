@@ -13,6 +13,7 @@ public:
     Player(uint8_t specType, std::string name);
 
     std::string* GetName();
+    void SetNewName(std::string newName);
 
     uint8_t GetSpecType();
 private:
