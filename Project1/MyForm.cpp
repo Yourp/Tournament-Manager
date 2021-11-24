@@ -1,4 +1,4 @@
-#include "MyForm.h"
+п»ї#include "MyForm.h"
 #include "Player.h"
 #include <iostream>
 #include <msclr/marshal_cppstd.h>
@@ -32,7 +32,7 @@ void MyForm::RemovePlayer(System::Object ^, System::EventArgs ^)
 
 void MyForm::RemoveAllPlayers(System::Object ^, System::EventArgs ^)
 {
-    if (MessageBox::Show("Удалить всех игроков из списка?", "Очистка списка", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == Windows::Forms::DialogResult::Yes)
+    if (MessageBox::Show("РЈРґР°Р»РёС‚СЊ РІСЃРµС… РёРіСЂРѕРєРѕРІ РёР· СЃРїРёСЃРєР°?", "РћС‡РёСЃС‚РєР° СЃРїРёСЃРєР°", MessageBoxButtons::YesNo, MessageBoxIcon::Question) == Windows::Forms::DialogResult::Yes)
     {
         LB_PlayerList->Items->Clear();
         players->ClearAllPlayers();
@@ -124,12 +124,12 @@ void MyForm::HandleWinner(System::Object ^, System::EventArgs ^)
 
         if (players->GetTeamsCount() == 1)
         {
-            String^ msg = "Победители: ";
+            String^ msg = "РџРѕР±РµРґРёС‚РµР»Рё: ";
             msg += marshal_as<String^>(*winner->GetPlayerName(0));
-            msg += " и ";
+            msg += " Рё ";
             msg += marshal_as<String^>(*winner->GetPlayerName(1));
 
-            MessageBox::Show(msg, "Турнир завершен!", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            MessageBox::Show(msg, "РўСѓСЂРЅРёСЂ Р·Р°РІРµСЂС€РµРЅ!", MessageBoxButtons::OK, MessageBoxIcon::Information);
 
             SetCurrentArena(false);
             LV_TeamList->Items->Clear();
@@ -297,7 +297,7 @@ bool Project1::MyForm::CheckPlayerInList()
     {
         if (LB_PlayerList->Items[i]->ToString() == (HealerCheck->Checked ? (TB_AddPlayerTextBox->Text + HealMarker) : TB_AddPlayerTextBox->Text))
         {
-            MessageBox::Show("Этот игрок уже есть в списке!", "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Information);
+            MessageBox::Show("Р­С‚РѕС‚ РёРіСЂРѕРє СѓР¶Рµ РµСЃС‚СЊ РІ СЃРїРёСЃРєРµ!", "РџСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµ", MessageBoxButtons::OK, MessageBoxIcon::Information);
             return false;
         }
     }
